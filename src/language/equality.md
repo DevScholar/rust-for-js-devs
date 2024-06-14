@@ -54,8 +54,7 @@ a type must implement [`PartialEq`][partialeq.rs].
 
 Fixing the example above means deriving `PartialEq` for `Point`. Per default,
 deriving `PartialEq` will compare all fields for equality, which therefore have
-to implement `PartialEq` themselves. This is comparable to the equality for
-records in C#.
+to implement `PartialEq` themselves.
 
 ```rust
 #[derive(Copy, Clone, PartialEq)]

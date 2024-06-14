@@ -1,7 +1,7 @@
 # Polymorphism
 
 Rust does not support classes and sub-classing therefore polymorphism can't be
-achieved in an identical manner to C#.
+achieved in an identical manner to JavaScript.
 
 See also:
 

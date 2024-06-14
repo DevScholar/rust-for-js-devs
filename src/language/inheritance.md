@@ -1,8 +1,8 @@
 # Inheritance
 
 As explained in [structures] section, Rust does not provide (class-based)
-inheritance as in C#. A way to provide shared behavior between structs is via
-making use of traits. However, similar to _interface inheritance_ in C#, Rust
+inheritance. A way to provide shared behavior between structs is via
+making use of traits. However, Rust
 allows to define relationships between traits by using
 [_supertraits_][supertrait.rs].
 

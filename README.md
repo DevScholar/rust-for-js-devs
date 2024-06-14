@@ -1,6 +1,6 @@
 # Rust for JavaScript Developers
 
-This book is **under construction**. Currently, there is a shortage of people for this project. If you like the project, please consider contributing to accelerate the development of the project.
+This book is **under construction**.
 
 This book is adapted from Microsoft's [Rust for C#/.NET Developers](https://github.com/microsoft/rust-for-dotnet-devs).
 
