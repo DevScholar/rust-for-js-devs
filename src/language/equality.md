@@ -1,34 +1,36 @@
 # Equality
 
-When comparing for equality in C#, this refers to testing for _equivalence_ in
-some cases (also known as _value equality_), and in other cases it refers to
+When comparing for equality in JavaScript, this refers to testing for _equivalence_ insome cases (also known as _value equality_), and in other cases it refers to
 testing for _reference equality_, which tests whether two variables refer to the
-same underlying object in memory. Every custom type can be compared for equality
-because it inherits from `System.Object` (or `System.ValueType` for value types,
-which inherits from `System.Object`), using either one of the abovementioned
-semantics.
+same underlying object in memory. In JavaScript, while there is no syntax for explicitly custom types, custom types can be simulated through constructors and prototypes. Constructors allow you to create objects with specific properties and methods, and you can use prototypes to implement inheritance and shared methods. Every "custom type" can be compared for equality
+because it inherits from `object`.
 
-For example, when comparing for equivalence and reference equality in C#:
+For example, when comparing for equivalence and reference equality in JavaScript:
 
-```csharp
-var a = new Point(1, 2);
-var b = new Point(1, 2);
-var c = a;
-Console.WriteLine(a == b); // (1) True
-Console.WriteLine(a.Equals(b)); // (1) True
-Console.WriteLine(a.Equals(new Point(2, 2))); // (1) False
-Console.WriteLine(ReferenceEquals(a, b)); // (2) False
-Console.WriteLine(ReferenceEquals(a, c)); // (2) True
+```js
+class Point {
+    constructor(X, Y) {
+        this.X = X;
+        this.Y = Y;
+    }
+    
+    equals(other) {
+        return this.X === other.X && this.Y === other.Y;
+    }
+}
 
-record Point(int X, int Y);
+const a = new Point(1, 2);
+const b = new Point(1, 2);
+const c = a;
+
+console.log(a.equals(b)); // (1) true
+console.log(a.equals(new Point(2, 2))); // (1) false
+console.log(a === b); // (2) false
+console.log(a === c); // (2) true
 ```
 
-1. The equality operator `==` and the `Equals` method on the `record Point`
-   compare for value equality, since records support value-type equality by
-   default.
-
-2. Comparing for reference equality tests whether the variables refer to the
-   same underlying object in memory.
+1. In JavaScript, classes are used to implement equals methods to compare the equality of values.
+2. For the comparison of reference equality, using the === operator to check if the variable points to the same object in memory.
 
 Equivalently in Rust:
 

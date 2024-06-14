@@ -1,9 +1,9 @@
 # Variables
 
-Consider the following example around variable assignment in C#:
+Consider the following example around variable assignment in JavaScript:
 
-```csharp
-int x = 5;
+```js
+let x = 5;
 ```
 
 And the same in Rust:
@@ -12,14 +12,13 @@ And the same in Rust:
 let x: i32 = 5;
 ```
 
-So far, the only visible difference between the two languages is that the
-position of the type declaration is different. Also, both C# and Rust are
+Rust is
 type-safe: the compiler guarantees that the value stored in a variable is always
 of the designated type. The example can be simplified by using the compiler's
-ability to automatically infer the types of the variable. In C#:
+ability to automatically infer the types of the variable. In JavaScript:
 
-```csharp
-var x = 5;
+```js
+let x = 5;
 ```
 
 In Rust:
@@ -29,12 +28,12 @@ let x = 5;
 ```
 
 When expanding the first example to update the value of the variable
-(reassignment), the behavior of C# and Rust differ:
+(reassignment), the behavior of JavaScript and Rust differ:
 
-```csharp
-var x = 5;
+```js
+let x = 5;
 x = 6;
-Console.WriteLine(x); // 6
+console.log(x); // 6
 ```
 
 In Rust, the identical statement will not compile:
@@ -64,7 +63,7 @@ let x = 6;
 println!("{}", x); // 6
 ```
 
-C# also supports shadowing, e.g. locals can shadow fields and type members can
+JavaScript also supports shadowing, e.g. locals can shadow fields and type members can
 shadow members from the base type. In Rust, the above example demonstrates
 that shadowing also allows to change the type of a variable without changing
 the name, which is useful if one wants to transform the data into different
