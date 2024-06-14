@@ -1,7 +1,6 @@
 # Exception Handling
 
-In .NET, an exception is a type that inherits from the
-[`System.Exception`][net-system-exception] class. Exceptions are thrown if a
+In JavaScript, an exception should always be an [`Error`][js-system-exception] object or an instance of an `Error` subclass. Exceptions are thrown if a
 problem occurs in a code section. A thrown exception is passed up the stack
 until the application handles it or the program terminates.
 
@@ -15,20 +14,14 @@ error is always a symptom of a bug.
 
 ## Custom error types
 
-In .NET, custom exceptions derive from the `Exception` class. The documentation
-on [how to create user-defined exceptions][net-user-defined-exceptions] mentions
-the following example:
+An example on [how to create user-defined exceptions][js-user-defined-exceptions]:
 
-```csharp
-public class EmployeeListNotFoundException : Exception
-{
-    public EmployeeListNotFoundException() { }
-
-    public EmployeeListNotFoundException(string message)
-        : base(message) { }
-
-    public EmployeeListNotFoundException(string message, Exception inner)
-        : base(message, inner) { }
+```js
+class EmployeeListNotFoundException extends Error {
+    constructor(message) {
+        super(message);
+        this.name = 'EmployeeListNotFoundException';
+    }
 }
 ```
 
@@ -49,23 +42,22 @@ impl std::fmt::Display for EmployeeListNotFound {
 impl std::error::Error for EmployeeListNotFound {}
 ```
 
-The equivalent to the .NET `Exception.InnerException` property is the
+The equivalent to the JavaScript `Error.cause` property is the
 `Error::source()` method in Rust. However, it is not required to provide an
 implementation for `Error::source()`, the blanket (default) implementation
 returns a `None`.
 
 ## Raising exceptions
 
-To raise an exception in C#, throw an instance of the exception:
+To raise an error in JavaScript, throw an error:
 
-```csharp
-void ThrowIfNegative(int value)
-{
-    if (value < 0)
-    {
-        throw new ArgumentOutOfRangeException(nameof(value));
+```js
+function throwIfNegative(value) {
+    if (value < 0) {
+        throw new Error('Value cannot be negative');
     }
 }
+
 ```
 
 For recoverable errors in Rust, return an `Ok` or `Err` variant from a method:
@@ -92,27 +84,25 @@ fn panic_if_negative(value: i32) {
 
 ## Error propagation
 
-In .NET, exceptions are passed up the stack until they are handled or the
+In .NET, exceptions are passed up until they are handled or the
 program terminates. In Rust, unrecoverable errors behave similarly, but handling
 them is uncommon.
 
 Recoverable errors, however, need to be propagated and handled explicitly. Their
 presence is always indicated by the Rust function or method signature. Catching
 an exception allows you to take action based on the presence or absence of an
-error in C#:
+error in JavaScript:
 
 ```csharp
-void Write()
-{
-    try
-    {
-        File.WriteAllText("file.txt", "content");
-    }
-    catch (IOException)
-    {
-        Console.WriteLine("Writing to file failed.");
+//JavaScript doesn't have a file system in it. People often implement file systems using the BrowserFS library that mimic Node.js APIs.
+function write() {
+    try {
+        fs.writeFileSync('file.txt', 'content');
+    } catch (error) {
+        console.log('Writing to file failed.');
     }
 }
+
 ```
 
 In Rust, this is roughly equivalent to:
@@ -148,8 +138,8 @@ propagating errors_][propagating-errors-rust-book]. The most general
 
 ## Stack traces
 
-Throwing an unhandled exception in .NET will cause the runtime to print a stack
-trace that allows debugging the problem with additional context.
+<!--Throwing an unhandled exception in .NET will cause the runtime to print a stack
+trace that allows debugging the problem with additional context.-->
 
 For unrecoverable errors in Rust, [`panic!` Backtraces][panic-backtrace] offer a
 similar behavior.
@@ -157,10 +147,10 @@ similar behavior.
 Recoverable errors in stable Rust do not yet support Backtraces, but it is
 currently supported in experimental Rust when using the [provide method].
 
-[net-system-exception]: https://learn.microsoft.com/en-us/dotnet/api/system.exception?view=net-6.0
+[js-system-exception]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error
 [rust-result]: https://doc.rust-lang.org/std/result/enum.Result.html
 [panic-backtrace]: https://doc.rust-lang.org/book/ch09-01-unrecoverable-errors-with-panic.html#using-a-panic-backtrace
-[net-user-defined-exceptions]: https://learn.microsoft.com/en-us/dotnet/standard/exceptions/how-to-create-user-defined-exceptions
+[js-user-defined-exceptions]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error/Error
 [rust-std-error]: https://doc.rust-lang.org/std/error/trait.Error.html
 [provide method]: https://doc.rust-lang.org/std/error/trait.Error.html#method.provide
 [question-mark-operator]: https://doc.rust-lang.org/std/result/index.html#the-question-mark-operator-

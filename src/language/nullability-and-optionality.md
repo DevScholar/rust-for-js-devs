@@ -1,16 +1,16 @@
 # Nullability and Optionality
 
-In C#, `null` is often used to represent a value that is missing, absent or
+In JavaScript, `null` is often used to represent a value that is missing, absent or
 logically uninitialized. For example:
 
-```csharp
-int? some = 1;
-int? none = null;
+```js
+let some = 1;
+let none = null;
 ```
 
 Rust has no `null` and consequently no nullable context to enable. Optional or
 missing values are instead represented by [`Option<T>`][option]. The
-equivalent of the C# code above in Rust would be:
+equivalent of the JavaScript code above in Rust would be:
 
 ```rust
 let some: Option<i32> = Some(1);
@@ -23,14 +23,14 @@ let none: Option<i32> = None;
 
 ## Control flow with optionality
 
-In C#, you may have been using `if`/`else` statements for controlling the flow
+In JavaScript, you may have been using `if`/`else` statements for controlling the flow
 when using nullable values.
 
-```csharp
-uint? max = 10;
-if (max is { } someMax)
-{
-    Console.WriteLine($"The maximum is {someMax}."); // The maximum is 10.
+```js
+let max = 10;
+if (max !== null && max !== undefined) {
+    let someMax = max;
+    console.log(`The maximum is ${someMax}.`); // 输出：The maximum is 10.
 }
 ```
 
@@ -55,15 +55,15 @@ if let Some(max) = max {
 
 ## Null-conditional operators
 
-The null-conditional operators (`?.` and `?[]`) make dealing with `null` in C#
+The null-conditional operators (`?.`) make dealing with `null` in JavaScript
 more ergonomic. In Rust, they are best replaced by using the [`map`][optmap]
 method. The following snippets show the correspondence:
 
-```csharp
-string? some = "Hello, World!";
-string? none = null;
-Console.WriteLine(some?.Length); // 13
-Console.WriteLine(none?.Length); // (blank)
+```js
+let some = "Hello, World!";
+let none = null;
+console.log(some?.length); // 13
+console.log(none?.length); // undefined
 ```
 
 ```rust
@@ -78,11 +78,11 @@ println!("{:?}", none.map(|s| s.len())); // None
 The null-coalescing operator (`??`) is typically used to default to another
 value when a nullable is `null`:
 
-```csharp
-int? some = 1;
-int? none = null;
-Console.WriteLine(some ?? 0); // 1
-Console.WriteLine(none ?? 0); // 0
+```js
+let some = 1;
+let none = null;
+console.log(some ?? 0); // 1
+console.log(none ?? 0); // 0
 ```
 
 In Rust, you can use [`unwrap_or`][unwrap-or] to get the same behavior:
@@ -100,8 +100,8 @@ lazily initialize the default value.
 
 ## Null-forgiving operator
 
-The null-forgiving operator (`!`) does not correspond to an equivalent construct
-in Rust, as it only affects the compiler's static flow analysis in C#. In Rust,
+<!--The null-forgiving operator (`!`) does not correspond to an equivalent construct
+in Rust, as it only affects the compiler's static flow analysis in C#. -->In Rust,
 there is no need to use a substitute for it.
 
 [option]: https://doc.rust-lang.org/std/option/enum.Option.html
