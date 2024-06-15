@@ -14,7 +14,7 @@ public class MyClass {}
 class MyClass {}
 ```
 
-In Rust [doc comments] provide the equivalent to C# documentation comments.
+In Rust [doc comments] provide the equivalent to JSDoc documentation comments.
 Documentation comments in Rust use Markdown syntax. [`rustdoc`][rustdoc] is the
 documentation compiler for Rust code and is usually invoked through [`cargo
 doc`][cargo doc], which compiles the comments into documentation. For example:
