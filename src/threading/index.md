@@ -5,7 +5,9 @@ Also the language itself and the standard library do have basic support for the
 concepts, a lot of additional functionality is provided by crates and will not
 be covered in this document.
 
-The following lists approximate mapping of threading types and methods in .NET
+JavaScript is a single-threaded scripting language that does not support multithreading.
+
+<!--The following lists approximate mapping of threading types and methods in .NET
 to Rust:
 
 | .NET               | Rust                      |
@@ -26,18 +28,19 @@ to Rust:
 | `Interlocked`      | `std::sync::atomic`       |
 | `Volatile`         | `std::sync::atomic`       |
 | `ThreadLocal`      | `std::thread_local`       |
+-->
+Below is a simple JavaScript program that creates a thread (where the thread
+prints some text to standard output) indirectly by using `worker` and then waits for it to end:
 
-Launching a thread and waiting for it to finish works the same way in C#/.NET
-and Rust. Below is a simple C# program that creates a thread (where the thread
-prints some text to standard output) and then waits for it to end:
+```js
+// Equivalent JavaScript code using Web Workers
+const worker = new Worker(URL.createObjectURL(new Blob([`
+    self.onmessage = function(event) {
+        console.log(event.data);
+    };
+`], { type: 'application/javascript' })));
 
-```csharp
-using System;
-using System.Threading;
-
-var thread = new Thread(() => Console.WriteLine("Hello from a thread!"));
-thread.Start();
-thread.Join(); // wait for thread to finish
+worker.postMessage('Hello from a thread!');
 ```
 
 The same code in Rust would be as follows:
@@ -52,32 +55,27 @@ fn main() {
 ```
 
 Creating and initializing a thread object and starting a thread are two
-different actions in .NET whereas in Rust both happen at the same time with
+different actions in JavaScript whereas in Rust both happen at the same time with
 `thread::spawn`.
 
-In .NET, it's possible to send data as an argument to a thread:
+In JavaScript, it's possible to send data as an argument to a thread:
+```js
+const workerCode = `
+self.onmessage = function(e) {
+    let eventData = e.data;
+    eventData += (" World!");
+    console.log("Phrase: " + eventData);
+};
+`;
 
-```csharp
-#nullable enable
+const blob = new Blob([workerCode], { type: "application/javascript" });
+const worker = new Worker(URL.createObjectURL(blob));
 
-using System;
-using System.Text;
-using System.Threading;
-
-var t = new Thread(obj =>
-{
-    var data = (StringBuilder)obj!;
-    data.Append(" World!");
-});
-
-var data = new StringBuilder("Hello");
-t.Start(data);
-t.Join();
-
-Console.WriteLine($"Phrase: {data}");
+const data = "Hello";
+worker.postMessage(data);
 ```
 
-However, a more modern or terser version would use closures:
+<!--However, a more modern or terser version would use closures:
 
 ```csharp
 using System;
@@ -92,7 +90,7 @@ t.Start();
 t.Join();
 
 Console.WriteLine($"Phrase: {data}");
-```
+```-->
 
 In Rust, there is no variation of `thread::spawn` that does the same. Instead,
 the data is passed to the thread via a closure:
@@ -119,10 +117,10 @@ A few things to note:
   `data` must be copied or cloned (depending on what the type of the value
   supports).
 
-- Rust thread can return values, like tasks in C#, which becomes the return
+- Rust thread can return values, which becomes the return
   value of the `join` method.
 
-- It is possible to also pass data to the C# thread via a closure, like the
-  Rust example, but the C# version does not need to worry about ownership
+- It is possible to also pass data to the JavaScript thread via a closure, like the
+  Rust example, but the JavaScript version does not need to worry about ownership
   since the memory behind the data will be reclaimed by the GC once no one is
   referencing it anymore.

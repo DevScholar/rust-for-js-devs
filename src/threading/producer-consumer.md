@@ -2,29 +2,31 @@
 
 The producer-consumer pattern is very common to distribute work between
 threads where data is passed from producing threads to consuming threads
-without the need for sharing or locking. .NET has very rich support for this,
-but at the most basic level, `System.Collections.Concurrent` provides the `BlockingCollection` as shown in the next example in C#:
+without the need for sharing or locking. 
 
-```csharp
-using System;
-using System.Threading;
-using System.Collections.Concurrent;
+```js
+const workerCode = `
+    self.onmessage = function() {
+        const messages = [];
+        for (let n = 1; n < 10; n++) {
+            messages.push("Message #" + n);
+        }
+        self.postMessage(messages);
+    };
+`;
 
-var messages = new BlockingCollection<string>();
-var producer = new Thread(() =>
-{
-    for (var n = 1; i < 10; i++)
-        messages.Add($"Message #{n}");
-    messages.CompleteAdding();
-});
+const blob = new Blob([workerCode], { type: "application/javascript" });
+const worker = new Worker(URL.createObjectURL(blob));
 
-producer.Start();
+// The main thread acts as a consumer here
+worker.onmessage = function(event) {
+    const messages = event.data;
+    messages.forEach(message => console.log(message));
+};
 
-// main thread is the consumer here
-foreach (var message in messages.GetConsumingEnumerable())
-    Console.WriteLine(message);
+// Start the worker
+worker.postMessage(null);
 
-producer.Join();
 ```
 
 The same can be done in Rust using _channels_. The standard library primarily
@@ -55,9 +57,7 @@ fn main() {
 }
 ```
 
-Like channels in Rust, .NET also offers channels in the
-`System.Threading.Channels` namespace, but it is primarily designed to be used
-with tasks and asynchronous programming using `async` and `await`. The
+The
 equivalent of the [async-friendly channels in the Rust space is offered by the
 Tokio runtime][tokio-channels].
 
