@@ -1,16 +1,17 @@
 # Documentation Comments
 
-C# provides a mechanism to document the API for types using a comment syntax
-that contains XML text. The C# compiler produces an XML file that contains
+A third-party tool called JSDoc provides a mechanism to document the API for types using a comment syntax. JSDoc includes a Markdown plugin that automatically converts Markdown-formatted text to HTML. The comment contains
 structured data representing the comments and the API signatures. Other tools
 can process that output to provide human-readable documentation in a different
-form. A simple example in C#:
+form. A simple example in JavaScript:
 
-```csharp
-/// <summary>
-/// This is a document comment for <c>MyClass</c>.
-/// </summary>
+```js
 public class MyClass {}
+/**
+ * This is a document comment for `MyClass`.
+ * @class
+ */
+class MyClass {}
 ```
 
 In Rust [doc comments] provide the equivalent to C# documentation comments.
@@ -23,7 +24,7 @@ doc`][cargo doc], which compiles the comments into documentation. For example:
 struct MyStruct;
 ```
 
-In the .NET SDK there is no equivalent to `cargo doc`, such as `dotnet doc`.
+In the JavaScript, the equivalent to `cargo doc` is `jsdoc`.
 
 See also:
 

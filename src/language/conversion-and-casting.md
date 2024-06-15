@@ -1,18 +1,18 @@
 # Conversion and Casting
 
-Both C# and Rust are statically-typed at compile time. Hence, after a variable
+Rust is statically-typed at compile time. Hence, after a variable
 is declared, assigning a value of a value of a different type (unless it's
 implicitly convertible to the target type) to the variable is prohibited. There
-are several ways to convert types in C# that have an equivalent in Rust.
+are several ways to convert types in Rust.
 
 ## Implicit conversions
 
-Implicit conversions exist in C# as well as in Rust (called [type coercions]).
+Implicit conversions exist in JavaScript as well as in Rust (called [type coercions]).
 Consider the following example:
 
-```csharp
-int intNumber = 1;
-long longNumber = intNumber;
+```js
+let intNumber = 1;
+let longNumber = intNumber;
 ```
 
 Rust is much more restrictive with respect to which type coercions are allowed:
@@ -43,16 +43,15 @@ See also:
 
 ## Explicit conversions
 
-If converting could cause a loss of information, C# requires explicit
+If converting could cause a loss of information, JavaScript requires explicit
 conversions using a casting expression:
 
-```csharp
-double a = 1.2;
-int b = (int)a;
+```js
+let a = 1.2;
+let b = parseInt(a);
 ```
 
-Explicit conversions can potentially fail at run-time with exceptions like
-`OverflowException` or `InvalidCastException` when _down-casting_.
+Explicit conversions can potentially fail at run-time with exceptions when _down-casting_.
 
 Rust does not provide coercion between primitive types, but instead uses
 [explicit conversion][casting.rs] using the [`as`][as.rs] keyword (casting).
@@ -68,9 +67,9 @@ let long_number: i64 = int_number as _;
 
 ## Custom conversion
 
-Commonly, .NET types provide user-defined conversion operators to convert one
+<!--Commonly, .NET types provide user-defined conversion operators to convert one
 type to another type. Also, `System.IConvertible` serves the purpose of
-converting one type into another.
+converting one type into another.-->
 
 In Rust, the standard library contains an abstraction for converting a value
 into a different type, in form of the [`From`][from.rs] trait and its

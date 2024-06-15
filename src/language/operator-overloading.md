@@ -1,18 +1,25 @@
 # Operator overloading
 
-A custom type can overload an _overloadable operator_ in C#. Consider the
-following example in C#:
+JavaScript doesn't support operator overloading. Consider the
+following example in JavaScript:
 
-```csharp
-Console.WriteLine(new Fraction(5, 4) + new Fraction(1, 2));  // 14/8
+```js
+class Fraction {
+    constructor(numerator, denominator) {
+        this.numerator = numerator;
+        this.denominator = denominator;
+    }
 
-public readonly record struct Fraction(int Numerator, int Denominator)
-{
-    public static Fraction operator +(Fraction a, Fraction b) =>
-        new(a.Numerator * b.Denominator + b.Numerator * a.Denominator, a.Denominator * b.Denominator);
+    static add(a, b) {
+        return new Fraction(a.numerator * b.denominator + b.numerator * a.denominator, a.denominator * b.denominator);
+    }
 
-    public override string ToString() => $"{Numerator}/{Denominator}";
+    toString() {
+        return `${this.numerator}/${this.denominator}`;
+    }
 }
+
+console.log(Fraction.add(new Fraction(5, 4), new Fraction(1, 2)).toString());  // 输出 "14/8"
 ```
 
 In Rust, many operators [can be overloaded via traits][ops.rs]. This is possible

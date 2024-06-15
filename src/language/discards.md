@@ -1,13 +1,13 @@
 # Discards
 
-In C#, [discards][net-discards] express to the compiler and others to ignore the
+Discards express to the compiler and others to ignore the
 results (or parts) of an expression.
 
 There are multiple contexts where to apply this, for example as a basic example,
-to ignore the result of an expression. In C# this looks like:
+to ignore the result of an expression. JavaScript doesn't have discards, but you can call a function without assigning a value to any variable to emulate discards. In JavaScript this looks like:
 
-```csharp
-_ = city.GetCityInformation(cityName);
+```js
+city.getCityInformation(cityName);
 ```
 
 In Rust, [ignoring the result of an expression][rust-ignoring-values] looks
@@ -17,10 +17,10 @@ identical:
 _ = city.get_city_information(city_name);
 ```
 
-Discards are also applied for deconstructing tuples in C#:
+Discards are also applied for deconstructing "tuples" in JavaScript:
 
-```csharp
-var (_, second) = ("first", "second");
+```js
+const [_, second] = ["first", "second"];
 ```
 
 and, identically, in Rust:
@@ -48,8 +48,22 @@ match origin {
 ```
 
 When pattern matching, it is often useful to discard or ignore part of a
-matching expression, e.g. in C#:
+matching expression. But since there are no discards in JavaScript, and the switch statement of js cannot be used in the same way as rust, you have to emulate this feature in an awkward way:
 
+```js
+const _ = ("first", "second");
+const result = (_ => {
+    switch(true) {
+        case _.includes("first"):
+            return "first element matched";
+        default:
+            return "first element did not match";
+    }
+})();
+
+console.log(result);
+```
+<!--
 ```csharp
 _ = ("first", "second") switch
 {
@@ -57,8 +71,8 @@ _ = ("first", "second") switch
     (_, _) => "first element did not match"
 };
 ```
-
-and again, this looks almost identical in Rust:
+-->
+and again, in Rust:
 
 ```rust
 _ = match ("first", "second")
@@ -68,6 +82,5 @@ _ = match ("first", "second")
 };
 ```
 
-[net-discards]: https://learn.microsoft.com/en-us/dotnet/csharp/fundamentals/functional/discards
 [rust-ignoring-values]: https://doc.rust-lang.org/stable/book/ch18-03-pattern-syntax.html#ignoring-values-in-a-pattern
 [rust-destructuring]: https://doc.rust-lang.org/reference/patterns.html#destructuring
