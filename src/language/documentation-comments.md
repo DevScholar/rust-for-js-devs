@@ -24,7 +24,7 @@ doc`][cargo doc], which compiles the comments into documentation. For example:
 struct MyStruct;
 ```
 
-In the JavaScript, the equivalent to `cargo doc` is `jsdoc`.
+In JSDoc, the equivalent to `cargo doc` is `jsdoc`.
 
 See also:
 
