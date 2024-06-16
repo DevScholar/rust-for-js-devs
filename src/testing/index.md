@@ -2,9 +2,9 @@
 
 ## Test organization
 
-.NET solutions use separate projects to host test code, irrespective of the
-test framework being used (xUnit, NUnit, MSTest, etc.) and the type of tests
-(unit or integration) being wirtten. The test code therefore lives in a
+JavaScript solutions use separate projects to host test code, irrespective of the
+test framework being used (Jest, Mocha, etc.) and the type of tests
+(unit or integration) being written. The test code therefore lives in a
 separate assembly than the application or library code being tested. In Rust,
 it is a lot more conventional for _unit tests_ to be found in a separate test
 sub-module (conventionally) named `tests`, but which is placed in same _source
@@ -14,7 +14,7 @@ tests. This has two benefits:
 - The code/module and its unit tests live side-by-side.
 
 - There is no need for a workaround like `[InternalsVisibleTo]` that exists in
-  .NET because the tests have access to internals by virtual of being a
+  JavaScript because the tests have access to internals by virtual of being a
   sub-module.
 
 The test sub-module is annotated with the `#[cfg(test)]` attribute, which has
@@ -67,17 +67,23 @@ For more information, see "[Showing Function Output][test-output]".
   [test-output]: https://doc.rust-lang.org/book/ch11-02-running-tests.html#showing-function-output
 
 ## Assertions
+JavaScript users have multiple ways to assert, depending on the framework being used. For example, an assertion Jest might look like:
+```js
+test('something has the right length', () => {
+    let value = "something";
+    expect(value.length).toBe(9);
+});
+```
 
-.NET users have multiple ways to assert, depending on the framework being
-used. For example, an assertion xUnit.net might look like:
+An example that only uses vanilla JavaScript:
 
-```csharp
-[Fact]
-public void Something_Is_The_Right_Length()
-{
-    var value = "something";
-    Assert.Equal(9, value.Length);
+```js
+function somethingIsTheRightLength() {
+    let value = "something";
+    console.assert(value.length === 9);
 }
+
+somethingIsTheRightLength();
 ```
 
 Rust does not require a separate framework or crate. The standard library
@@ -107,9 +113,9 @@ tests, such as `[Theory]` in xUnit.net.
 
 ## Mocking
 
-When writing tests for a .NET application or library, there exist several
-frameworks, like Moq and NSubstitute, to mock out the dependencies of types.
-There are similar crates for Rust too, like [`mockall`][mockall], that can
+<!--When writing tests for a .NET application or library, there exist several
+frameworks, like Moq and NSubstitute, to mock out the dependencies of types.-->
+There are<!-- similar--> crates for Rust too, like [`mockall`][mockall], that can
 help with mocking. However, it is also possible to use [conditional
 compilation] by making use of the [`cfg` attribute][cfg-attribute] as a simple
 means to mocking without needing to rely on external crates or frameworks. The
@@ -181,10 +187,8 @@ mod tests {
 
 ## Code coverage
 
-There is sophisticated tooling for .NET when it comes to analyzing test code
-coverage. In Visual Studio, the tooling is built-in and integrated. In Visual
-Studio Code, plug-ins exist. .NET developers might be familiar with [coverlet]
-as well.
+There is sophisticated tooling for JavaScript when it comes to analyzing test code
+coverage, such as Jest.
 
 Rust is providing [built-in code coverage implementations][built-in-cov] for
 collecting test code coverage.
@@ -217,6 +221,5 @@ in-line visual indicators about the line coverage in the source code editor.
 
 [coverage.gutters]: https://marketplace.visualstudio.com/items?itemName=ryanluker.vscode-coverage-gutters
 [tarpaulin]: https://github.com/xd009642/tarpaulin
-[coverlet]: https://github.com/coverlet-coverage/coverlet
 [built-in-cov]: https://doc.rust-lang.org/stable/rustc/instrument-coverage.html#test-coverage
 [project structure]: ../project-structure/index.md

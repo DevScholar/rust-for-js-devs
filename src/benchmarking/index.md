@@ -5,8 +5,8 @@ command for `cargo` which is executing all the methods annotated with the
 `#[bench]` attribute. This attribute is currently [unstable][bench-unstable] and
 available only for the nightly channel.
 
-.NET users can make use of `BenchmarkDotNet` library to benchmark methods and
-track their performance. The equivalent of `BenchmarkDotNet` is a crate named
+.NET users can make use of `Benchmark.js` library to benchmark methods and
+track their performance. The equivalent of `Benchmark.js` is a crate named
 `Criterion`.
 
 As per its [documentation][criterion-docs], `Criterion` collects and stores
@@ -16,8 +16,8 @@ regressions as well as measuring optimizations.
 Using `Criterion` is possible to use the `#[bench]` attribute without moving to
 the nightly channel.
 
-As in `BenchmarkDotNet`, it is also possible to integrate benchmark results with
-the [GitHub Action for Continuous Benchmarking][gh-action-bench]. `Criterion`,
+<!--As in `BenchmarkDotNet`, it is also possible to integrate benchmark results with
+the [GitHub Action for Continuous Benchmarking][gh-action-bench]. -->`Criterion`,
 in fact, supports multiple output formats, amongst which there is also the
 `bencher` format, mimicking the nightly `libtest` benchmarks and compatible with
 the above mentioned action.

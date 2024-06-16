@@ -1,17 +1,17 @@
 # Conditional Compilation
 
-Both .NET and Rust are providing the possibility for compiling specific code
+Both JavaScript and Rust are providing the possibility for compiling specific code
 based on external conditions.
 
-In .NET it is possible to use the some [preprocessor directives][preproc-dir] in
-order to control conditional compilation
+JavaScript doesn't support conditional compilation natively. However, it is possible to use some third-party tool like [`babel-plugin-preprocessor`][preproc-dir] in
+order to control conditional compilation. 
 
-```csharp
-#if debug
+```js
+//#if DEBUG
     Console.WriteLine("Debug");
-#else
+//#else
     Console.WriteLine("Not debug");
-#endif
+//#endif
 ```
 
 In addition to predefined symbols, it is also possible to use the compiler
@@ -21,9 +21,6 @@ option _[DefineConstants]_ to define symbols that can be used with `#if`,
 In Rust it is possible to use the [`cfg attribute`][cfg],
 the [`cfg_attr attribute`][cfg-attr] or the
 [`cfg macro`][cfg-macro] to control conditional compilation
-
-As per .NET, in addition to predefined symbols, it is also possible to use the
-[compiler flag `--cfg`][cfg-flag] to arbitrarily set configuration options
 
 The [`cfg attribute`][cfg] is requiring and evaluating a
 `ConfigurationPredicate`
@@ -110,5 +107,5 @@ See also:
 [cfg-flag]: https://doc.rust-lang.org/rustc/command-line-arguments.html#--cfg-configure-the-compilation-environment
 [cfg-attr]: https://doc.rust-lang.org/reference/conditional-compilation.html#the-cfg_attr-attribute
 [cfg-macro]: https://doc.rust-lang.org/reference/conditional-compilation.html#the-cfg-macro
-[preproc-dir]: https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/preprocessor-directives#conditional-compilation
-[DefineConstants]: https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-options/language#defineconstants
+[preproc-dir]: https://github.com/kaysonwu/babel-plugin-preprocessor
+[DefineConstants]: https://github.com/kaysonwu/babel-plugin-preprocessor?tab=readme-ov-file#usage

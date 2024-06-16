@@ -1,36 +1,37 @@
 # Synchronization
 
 When data is shared between threads, one needs to synchronize read-write
-access to the data in order to avoid corruption. The C# offers the `lock`
-keyword as a synchronization primitive (which desugars to exception-safe use
-of `Monitor` from .NET):
+access to the data in order to avoid corruption. In JavaScript:
 
-```csharp
-using System;
-using System.Threading;
+```js
+let data = 0;
+let workers = [];
+let completedWorkers = 0;
 
-var dataLock = new object();
-var data = 0;
-var threads = new List<Thread>();
-
-for (var i = 0; i < 10; i++)
-{
-    var thread = new Thread(() =>
-    {
-        for (var j = 0; j < 1000; j++)
-        {
-            lock (dataLock)
-                data++;
+for (let i = 0; i < 10; i++) {
+    let worker = new Worker('data:text/javascript,' + encodeURIComponent(`
+        let partialData = 0;
+        for (let j = 0; j < 1000; j++) {
+            partialData++;
         }
-    });
-    threads.Add(thread);
-    thread.Start();
+        self.postMessage(partialData);
+    `));
+    
+    worker.onmessage = function(event) {
+        data += event.data;
+        completedWorkers++;
+        if (completedWorkers === 10) {
+            console.log(data);
+            workers.forEach(function(worker) {
+                worker.terminate();
+            });
+        }
+    };
+    
+    workers.push(worker);
+    worker.postMessage(null);
 }
 
-foreach (var thread in threads)
-    thread.Join();
-
-Console.WriteLine(data);
 ```
 
 In Rust, one must make explicit use of concurrency structures like `Mutex`:

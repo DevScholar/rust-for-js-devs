@@ -1,16 +1,13 @@
 # Logging and Tracing
 
-.NET supports a number of logging APIs. For most cases, `ILogger` is a good
-default choice, since it works with a variety of built-in and third-party
-logging providers. In C#, a minimal example for structured logging could look
+For most cases, `console.log()` is a good
+default choice for JavaScript, since it works with a variety of built-in and third-party
+logging providers. In JavaScript, a minimal example for structured logging could look
 like:
 
-```csharp
-using Microsoft.Extensions.Logging;
-
-using var loggerFactory = LoggerFactory.Create(builder => builder.AddConsole());
-var logger = loggerFactory.CreateLogger<Program>();
-logger.LogInformation("Hello {Day}.", "Thursday"); // Hello Thursday.
+```js
+let day = "Thursday";
+console.log("Hello ", day); // Hello Thursday.
 ```
 
 In Rust, a lightweight logging facade is provided by [log][log.rs]. It has less

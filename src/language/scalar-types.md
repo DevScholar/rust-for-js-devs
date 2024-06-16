@@ -5,7 +5,7 @@ JavaScript:
 
 | Rust    | JavaScript                | Note        |
 | ------- | ------------------------- | ----------- |
-| `bool`  | `boolean`                    |             |
+| `bool`  | `boolean`                 |             |
 | `char`  | `string`                  | See note 1. |
 | `i8`    | `number`                  | See note 2. |
 | `i16`   | `number`                  |             |

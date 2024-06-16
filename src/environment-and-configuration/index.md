@@ -2,9 +2,32 @@
 
 ## Accessing environment variables
 
-.NET provides access to environment variables via the
-`System.Environment.GetEnvironmentVariable` method. This method retrieves the
-value of an environment variable at runtime.
+JavaScript doesn't provide access to environment variables natively. However, some non-browser JavaScript runtimes, such as Node.js and Node provides access to environment variables.
+
+In Node.js:
+
+```js
+const name = "EXAMPLE_VARIABLE";
+
+let value = process.env[name];
+if (!value) {
+    console.log(`Variable '${name}' not set.`);
+} else {
+    console.log(`Variable '${name}' set to '${value}'.`);
+}
+```
+In Deno:
+
+```js
+const name = "EXAMPLE_VARIABLE";
+
+let value = Deno.env.get(name);
+if (!value) {
+    console.log(`Variable '${name}' not set.`);
+} else {
+    console.log(`Variable '${name}' set to '${value}'.`);
+}
+```
 
 ```csharp
 using System;
@@ -68,14 +91,10 @@ fn main() {
 }
 ```
 
-In .NET a compile time access to environment variables can be achieved, in a
-less straightforward way, via [source generators][source-gen].
-
-[source-gen]: https://learn.microsoft.com/en-us/dotnet/csharp/roslyn-sdk/source-generators-overview
-
 ## Configuration
 
-Configuration in .NET is possible with configuration providers. The framework is
+JavaScript doesn't support configurations.
+<!--Configuration in .NET is possible with configuration providers. The framework is
 providing several provider implementations via
 `Microsoft.Extensions.Configuration` namespace and NuGet packages.
 
@@ -105,7 +124,9 @@ Other providers examples can be found in the official documentation
 
 A similar configuration experience in Rust is available via use of third-party
 crates such as [figment] or [config].
-
+-->
+In Rust it is available via use of third-party
+crates such as [figment] or [config].
 See the following example making use of [config] crate:
 
 ```rust
