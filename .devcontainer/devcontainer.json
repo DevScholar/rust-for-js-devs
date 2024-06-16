@@ -1,5 +1,5 @@
 {
-  "name": "rust-for-dotnet-devcontainer",
+  "name": "rust-for-js-devcontainer",
   "build": {
     "dockerfile": "Dockerfile"
   },
