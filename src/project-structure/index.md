@@ -1,22 +1,15 @@
 # Project Structure
 
-While there are conventions around structuring a project  in .NET, they are
-less strict compared to the Rust project structure conventions. When creating
-a two-project solution using Visual Studio 2022 (a class library and an xUnit
-test project), it will create the following structure:
-
+The JavaScript standard does not specify a specification for the structure of the project. Generally speaking, all the files in a JavaScript library are usually placed in a folder named after the library. The following is a common JavaScript project specification:
     .
-    |   SampleClassLibrary.sln
-    +---SampleClassLibrary
-    |       Class1.cs
-    |       SampleClassLibrary.csproj
-    +---SampleTestProject
-            SampleTestProject.csproj
-            UnitTest1.cs
-            Usings.cs
-
-- Each project resides in a separate directory, with its own `.csproj` file.
-- At the root of the repository is a `.sln` file.
+    +-- src/
+    |   +-- project1.js
+    +-- styles/
+    |   +-- style1.js
+    +-- examples/
+    |   +-- some-example.js
+    +-- tests/
+        +-- some-integration-test.js
 
 Cargo uses the following conventions for the [package layout] to make it easy to
 dive into a new Cargo [package][rust-package]:
@@ -63,10 +56,12 @@ package.
 
 ## Managing dependency versions
 
-When managing larger projects in .NET, it may be appropriate to manage the
-versions of dependencies centrally, using strategies such as [Central Package
-Management]. Cargo introduced [workspace inheritance] to manage dependencies
+There is no concept of dependency in the JavaScript standard. However, some JavaScript runtimes, such as Node.js and Deno, have the concept of dependencies.
+When managing larger projects in Node.js, it may be appropriate to manage the
+versions of dependencies centrally, using strategies such as [nvm]. Deno uses [dvm]. 
+Cargo introduced [workspace inheritance] to manage dependencies
 centrally.
 
-[Central Package Management]: https://learn.microsoft.com/en-us/nuget/consume-packages/Central-Package-Management
+[nvm]: https://github.com/nvm-sh/nvm
+[dvm]: https://github.com/justjavac/dvm
 [workspace inheritance]: https://doc.rust-lang.org/cargo/reference/workspaces.html#the-package-table

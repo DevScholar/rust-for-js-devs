@@ -1,5 +1,7 @@
 # Variables
 
+⚠️Be Sure to learn about the [ownership](https://doc.rust-lang.org/book/ch04-01-what-is-ownership.html) in Rust before reading this article.
+
 Consider the following example around variable assignment in JavaScript:
 
 ```js

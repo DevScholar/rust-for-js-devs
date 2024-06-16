@@ -3,12 +3,7 @@
 Metaprogramming can be seen as a way of writing code that writes/generates other
 code.
 
-Roslyn is providing a feature for metaprogramming in C#, available since .NET 5,
-and called [`Source Generators`][source-gen]. Source generators can create new
-C# source files at build-time that are added to the user's compilation. Before
-`Source Generators` were introduced, Visual Studio has been providing a code
-generation tool via [`T4 Text Templates`][T4]. An example on how T4 works is the
-following [template] or its [concretization].
+JavaScript has the concept of metaprogramming, but it refers to intercepting and defining basic language operations, which is different from metaprogramming in C# or Rust. There is a JavaScript source generator called [hygen](https://github.com/jondot/hygen), but it does not call itself a "metaprogramming tool".
 
 Rust is also providing a feature for metaprogramming: [macros]. There are
 `declarative macros` and `procedural macros`.
@@ -37,7 +32,7 @@ chapter [macros by example] or [The Little Book of Rust Macros].
 [Procedural macros] are different than declarative macros. Those accept some code
 as an input, operate on that code, and produce some code as an output.
 
-Another technique used in C# for metaprogramming is reflection. Rust does not
+Rust does not
 support reflection.
 
 [source-gen]: https://learn.microsoft.com/en-us/dotnet/csharp/roslyn-sdk/source-generators-overview
@@ -104,7 +99,6 @@ read the rust reference for [attribute macros]
 
 [attribute macros]: https://doc.rust-lang.org/reference/procedural-macros.html#attribute-macros
 
-[T4]: https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-studio-2015/modeling/code-generation-and-t4-text-templates?view=vs-2015&redirectedfrom=MSDN
 [template]: https://github.com/atifaziz/Jacob/blob/master/src/JsonReader.g.tt
 [concretization]: https://github.com/atifaziz/Jacob/blob/master/src/JsonReader.g.cs
 [macros]: https://doc.rust-lang.org/book/ch19-06-macros.html

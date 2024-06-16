@@ -8,10 +8,26 @@ order to control conditional compilation.
 
 ```js
 //#if DEBUG
-    Console.WriteLine("Debug");
+    console.log("Debug");
 //#else
-    Console.WriteLine("Not debug");
+    console.log("Not debug");
 //#endif
+```
+
+An example that uses vanilla JavaScript:
+```js
+let isDebug = true;
+
+if(isDebug)
+{
+    window.eval(`
+    console.log("Debug");
+    `);
+} else {
+    window.eval(`
+    console.log("Not debug");
+    `);
+}
 ```
 
 In addition to predefined symbols, it is also possible to use the compiler

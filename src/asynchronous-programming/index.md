@@ -1,14 +1,13 @@
 # Asynchronous Programming
 
-Both .NET and Rust support asynchronous programming models, which look similar
+Both JavaScript and Rust support asynchronous programming models, which look similar
 to each other with respect to their usage. The following example shows, on a
-very high level, how async code looks like in C#:
+very high level, how async code looks like in JavaScript:
 
-```csharp
-async Task<string> PrintDelayed(string message, CancellationToken cancellationToken)
-{
-    await Task.Delay(TimeSpan.FromSeconds(1), cancellationToken);
-    return $"Message: {message}";
+```js
+async function printDelayed(message, cancellationToken) {
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    return `Message: ${message}`;
 }
 ```
 
@@ -26,20 +25,18 @@ async fn format_delayed(message: &str) -> String {
 ```
 
 1. The Rust [`async`][async.rs] keyword transforms a block of code into a state
-   machine that implements a trait called [`Future`][future.rs], similarly to
-   how the C# compiler transforms `async` code into a state machine. In both
+   machine that implements a trait called [`Future`][future.rs]. In both
    languages, this allows for writing asynchronous code sequentially.
 
-2. Note that for both Rust and C#, asynchronous methods/functions are prefixed
+2. Note that for both Rust and JavaScript, asynchronous methods/functions are prefixed
    with the async keyword, but the return types are different. Asynchronous
-   methods in C# indicate the full and actual return type because it can vary.
-   For example, it is common to see some methods return a `Task<T>` while others
-   return a `ValueTask<T>`. In Rust, it is enough to specify the _inner type_
+   methods in JavaScript indicate the full and actual return type because it can vary.
+   In Rust, it is enough to specify the _inner type_
    `String` because it's _always some future_; that is, a type that implements
    the `Future` trait.
 
-3. The `await` keywords are in different positions in C# and Rust. In C#, a
-   `Task` is awaited by prefixing the expression with `await`. In Rust,
+1. The `await` keywords are in different positions in JavaScript and Rust. In C#, a
+   `Promise` is awaited by prefixing the expression with `await`. In Rust,
    suffixing the expression with the `.await` keyword allows for _method
    chaining_, even though `await` is not a method.
 
@@ -57,15 +54,14 @@ See also:
 From the following example the `PrintDelayed` method executes, even though it is
 not awaited:
 
-```csharp
-var cancellationToken = CancellationToken.None;
-PrintDelayed("message", cancellationToken); // Prints "message" after a second.
-await Task.Delay(TimeSpan.FromSeconds(2), cancellationToken);
+```js
+let cancellationToken = undefined; 
+printDelayed("message", cancellationToken); // Prints "message" after a second.
+await new Promise(resolve => setTimeout(resolve, 2000));
 
-async Task PrintDelayed(string message, CancellationToken cancellationToken)
-{
-    await Task.Delay(TimeSpan.FromSeconds(1), cancellationToken);
-    Console.WriteLine(message);
+async function printDelayed(message, cancellationToken) {
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    console.log(message);
 }
 ```
 
@@ -111,8 +107,8 @@ automatically when using the macro.
 
 ## Task cancellation
 
-The previous C# examples included passing a `CancellationToken` to asynchronous
-methods, as is considered best practice in .NET. `CancellationToken`s can be
+The previous JavaScript examples included passing a `CancellationToken` to asynchronous
+methods, as is considered best practice in JavaScript. `CancellationToken`s can be
 used to abort an asynchronous operation.
 
 Because futures are inert in Rust (they make progress only when polled),
@@ -131,27 +127,27 @@ for cases where implementing the `Drop` trait on a `Future` is unfeasible.
 
 ## Executing multiple Tasks
 
-In .NET, `Task.WhenAny` and `Task.WhenAll` are frequently used to handle the
+In JavaScript, `Promise.race` and `Task.WhenAll` are frequently used to handle the
 execution of multiple tasks.
 
-`Task.WhenAny` completes as soon as any task completes. Tokio, for example,
+`Promise.race` completes as soon as any task completes. Tokio, for example,
 provides the [`tokio::select!`][tokio-select] macro as an alternative for
-`Task.WhenAny`, which means to wait on multiple concurrent branches.
+`Promise.race`, which means to wait on multiple concurrent branches.
 
-```csharp
-var cancellationToken = CancellationToken.None;
+```js
+const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
-var result =
-    await Task.WhenAny(Delay(TimeSpan.FromSeconds(2), cancellationToken),
-                       Delay(TimeSpan.FromSeconds(1), cancellationToken));
+const delayMessage = async (delayTime) => {
+    await delay(delayTime);
+    return `Waited ${delayTime / 1000} second(s).`;
+};
 
-Console.WriteLine(result.Result); // Waited 1 second(s).
+const delay1 = delayMessage(1000);
+const delay2 = delayMessage(2000);
 
-async Task<string> Delay(TimeSpan delay, CancellationToken cancellationToken)
-{
-    await Task.Delay(delay, cancellationToken);
-    return $"Waited {delay.TotalSeconds} second(s).";
-}
+Promise.race([delay1, delay2]).then(result => {
+    console.log(result); // Output: Waited 1 second(s).
+});
 ```
 
 The same example for Rust:
@@ -178,16 +174,16 @@ async fn delay(delay: Duration) -> String {
 
 Again, there are crucial differences in semantics between the two examples. Most
 importantly, `tokio::select!` will cancel all remaining branches, while
-`Task.WhenAny` leaves it up to the user to cancel any in-flight tasks.
+`Promise.race` leaves it up to the user to cancel any in-flight tasks.
 
-Similarly, `Task.WhenAll` can be replaced with [`tokio::join!`][tokio-join].
+Similarly, `Promise.all` can be replaced with [`tokio::join!`][tokio-join].
 
 [tokio-select]: https://docs.rs/tokio/latest/tokio/macro.select.html
 [tokio-join]: https://docs.rs/tokio/latest/tokio/macro.join.html
 
 ## Multiple consumers
 
-In .NET a `Task` can be used across multiple consumers. All of them can await
+In JavaScript a `Promise` can be used across multiple consumers. All of them can await
 the task and get notified when the task is completed or failed. In Rust, the
 `Future` can not be cloned or copied, and `await`ing will move the ownership.
 The `futures::FutureExt::shared` extension creates a cloneable handle to a
@@ -229,32 +225,31 @@ async fn background_operation(cancellation_token: CancellationToken) {
 
 ## Asynchronous iteration
 
-While in .NET there are [`IAsyncEnumerable<T>`][async-enumerable.net] and
-[`IAsyncEnumerator<T>`][async-enumerator.net], Rust does not yet have an API for
+Rust does not yet have an API for
 asynchronous iteration in the standard library. To support asynchronous
 iteration, the [`Stream`][stream.rs] trait from [`futures`][futures-stream.rs]
 offers a comparable set of functionality.
 
-In C#, writing async iterators has comparable syntax to when writing synchronous
+In JavaScript, writing async iterators has comparable syntax to when writing synchronous
 iterators:
 
-```csharp
-await foreach (int item in RangeAsync(10, 3).WithCancellation(CancellationToken.None))
-    Console.Write(item + " "); // Prints "10 11 12".
-
-async IAsyncEnumerable<int> RangeAsync(int start, int count)
-{
-    for (int i = 0; i < count; i++)
-    {
-        await Task.Delay(TimeSpan.FromSeconds(i));
-        yield return start + i;
+```js
+async function* RangeAsync(start, count) {
+    for (let i = 0; i < count; i++) {
+        await new Promise(resolve => setTimeout(resolve, i * 1000));
+        yield start + i;
     }
 }
+
+(async () => {
+    for await (const item of RangeAsync(10, 3)) {
+        console.log(item + " "); // Prints "10 11 12".
+    }
+})();
 ```
 
 In Rust, there are several types that implement the `Stream` trait, and hence
-can be used for creating streams, e.g. `futures::channel::mpsc`. For a syntax
-closer to C#, [`async-stream`][tokio-async-stream] offers a set of macros that
+can be used for creating streams, e.g. `futures::channel::mpsc`. [`async-stream`][tokio-async-stream] offers a set of macros that
 can be used to generate streams succinctly.
 
 ```rust
@@ -287,8 +282,6 @@ fn range(start: i32, count: i32) -> impl Stream<Item = i32> {
 }
 ```
 
-[async-enumerable.net]: https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.iasyncenumerable-1
-[async-enumerator.net]: https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.iasyncenumerator-1
 [stream.rs]: https://rust-lang.github.io/async-book/05_streams/01_chapter.html
 [futures-stream.rs]: https://docs.rs/futures/latest/futures/stream/trait.Stream.html
 [tokio-async-stream]: https://github.com/tokio-rs/async-stream
