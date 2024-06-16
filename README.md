@@ -1,7 +1,5 @@
 # Rust for JavaScript Developers
 
-This book is **under construction**.
-
 This book is adapted from Microsoft's [Rust for C#/.NET Developers](https://github.com/microsoft/rust-for-dotnet-devs).
 
 The document sources can be found in the `src` directory. It is structured for
