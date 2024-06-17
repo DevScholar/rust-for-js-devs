@@ -29,11 +29,7 @@ enum DayOfWeek
 }
 ```
 
-An instance of an `enum` type in Rust does not have any
-pre-defined behaviour that's inherited. It cannot even participate in equality
-checks as simple as `dow == DayOfWeek::Friday`.<!-- To bring it somewhat on par in
-function with an `enum` in C#, use [the `#derive` attribute][derive] to
-automatically have macros implement the commonly needed functionality:-->
+An instance of an `enum` type in Rust does not have any pre-defined behaviour that's inherited. It cannot even participate in equality checks as simple as `dow == DayOfWeek::Friday`.<!-- To bring it somewhat on par in function with an `enum` in C#, use [the `#derive` attribute][derive] to automatically have macros implement the commonly needed functionality:-->
 
 ```rust,does_not_compile
 #[derive(Debug,     // enables formatting in "{:?}"
@@ -70,10 +66,7 @@ fn main() {
 }
 ```
 
-As the example above shows, an `enum` can be coerced to its assigned integral
-value.<!--, but the opposite is not possible as in C# (although that sometimes has
-the downside in C#/.NET that an `enum` instance can hold an unrepresented
-value). Instead,--> It's up to the developer to provide such a helper function:
+As the example above shows, an `enum` can be coerced to its assigned integral value.<!--, but the opposite is not possible as in C# (although that sometimes has the downside in C#/.NET that an `enum` instance can hold an unrepresented value). Instead,--> It's up to the developer to provide such a helper function:
 
 ```rust
 impl DayOfWeek {
@@ -93,9 +86,7 @@ impl DayOfWeek {
 }
 ```
 
-The `try_from_i32` function returns a `DayOfWeek` in a `Result` indicating success
-(`Ok`) if `n` is valid. Otherwise it returns `n` as-is in a `Result`
-indicating failure (`Err`):
+The `try_from_i32` function returns a `DayOfWeek` in a `Result` indicating success (`Ok`) if `n` is valid. Otherwise it returns `n` as-is in a `Result` indicating failure (`Err`):
 
 ```rust
 let dow = DayOfWeek::try_from_i32(5);
@@ -105,11 +96,9 @@ let dow = DayOfWeek::try_from_i32(50);
 println!("{dow:?}"); // prints: Err(50)
 ```
 
-There exist crates in Rust that can help with implementing such mapping from
-integral types instead of having to code them manually.
+There exist crates in Rust that can help with implementing such mapping from integral types instead of having to code them manually.
 
-An `enum` type in Rust can also serve as a way to design (discriminated) union
-types, which allow different _variants_ to hold data specific to each variant.
+An `enum` type in Rust can also serve as a way to design (discriminated) union types, which allow different _variants_ to hold data specific to each variant.
 For example:
 
 ```rust
@@ -122,8 +111,7 @@ let home = IpAddr::V4(127, 0, 0, 1);
 let loopback = IpAddr::V6(String::from("::1"));
 ```
 
-This form of `enum` declaration does not exist in JavaScript, but it can be emulated
-with classes:
+This form of `enum` declaration does not exist in JavaScript, but it can be emulated with classes:
 
 ```js
 class IpAddr {
@@ -137,14 +125,6 @@ const home = new IpAddr([127, 0, 0, 1], null);
 const loopback = new IpAddr(null, "::1");
 ```
 
-The difference between the two is that the Rust definition produces a _closed
-type_ over the variants. In other words, the compiler knows that there will be
-no other variants of `IpAddr` except `IpAddr::V4` and `IpAddr::V6`, and it can
-use that knowledge to make stricter checks.<!-- For example, in a `match`
-expression that's akin to C#'s `switch` expression, the Rust compiler will
-fail code unless all variants are covered. In contrast, the emulation with C#
-actually creates a class hierarchy (albeit very succinctly expressed) and
-since `IpAddr` is an _abstract base class_, the set of all types it can
-represent is unknown to the compiler.-->
+The difference between the two is that the Rust definition produces a _closed type_ over the variants. In other words, the compiler knows that there will be no other variants of `IpAddr` except `IpAddr::V4` and `IpAddr::V6`, and it can use that knowledge to make stricter checks.<!-- For example, in a `match` expression that's akin to C#'s `switch` expression, the Rust compiler will fail code unless all variants are covered. In contrast, the emulation with C# actually creates a class hierarchy (albeit very succinctly expressed) and since `IpAddr` is an _abstract base class_, the set of all types it can represent is unknown to the compiler.-->
 
   [derive]: https://doc.rust-lang.org/stable/reference/attributes/derive.html

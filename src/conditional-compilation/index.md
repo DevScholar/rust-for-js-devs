@@ -1,10 +1,8 @@
 # Conditional Compilation
 
-Both JavaScript and Rust are providing the possibility for compiling specific code
-based on external conditions.
+Both JavaScript and Rust are providing the possibility for compiling specific code based on external conditions.
 
-JavaScript doesn't support conditional compilation natively. However, it is possible to use some third-party tool like [`babel-plugin-preprocessor`][preproc-dir] in
-order to control conditional compilation. 
+JavaScript doesn't support conditional compilation natively. However, it is possible to use some third-party tool like [`babel-plugin-preprocessor`][preproc-dir] in order to control conditional compilation. 
 
 ```js
 //#if DEBUG
@@ -15,6 +13,7 @@ order to control conditional compilation.
 ```
 
 An example that uses vanilla JavaScript:
+
 ```js
 let isDebug = true;
 
@@ -30,16 +29,11 @@ if(isDebug)
 }
 ```
 
-In addition to predefined symbols, it is also possible to use the compiler
-option _[DefineConstants]_ to define symbols that can be used with `#if`,
-`#else`, `#elif` and `#endif` to compile source files conditionally.
+In addition to predefined symbols, it is also possible to use the compiler option _[DefineConstants]_ to define symbols that can be used with `#if`, `#else`, `#elif` and `#endif` to compile source files conditionally.
 
-In Rust it is possible to use the [`cfg attribute`][cfg],
-the [`cfg_attr attribute`][cfg-attr] or the
-[`cfg macro`][cfg-macro] to control conditional compilation
+In Rust it is possible to use the [`cfg attribute`][cfg], the [`cfg_attr attribute`][cfg-attr] or the [`cfg macro`][cfg-macro] to control conditional compilation
 
-The [`cfg attribute`][cfg] is requiring and evaluating a
-`ConfigurationPredicate`
+The [`cfg attribute`][cfg] is requiring and evaluating a `ConfigurationPredicate`
 
 ```rust
 use std::fmt::{Display, Formatter};
@@ -78,8 +72,7 @@ fn main() {
 }
 ```
 
-The [`cfg_attr attribute`][cfg-attr] conditionally includes attributes based on
-a configuration predicate.
+The [`cfg_attr attribute`][cfg-attr] conditionally includes attributes based on a configuration predicate.
 
 ```rust
 #[cfg_attr(feature = "serialization_support", derive(Serialize, Deserialize))]
@@ -90,9 +83,7 @@ pub struct MaybeSerializableStruct;
 // pub struct MaybeSerializableStruct;
 ```
 
-The built-in [`cfg macro`][cfg-macro] takes in a single configuration predicate
-and evaluates to the true literal when the predicate is true and the false
-literal when it is false.
+The built-in [`cfg macro`][cfg-macro] takes in a single configuration predicate and evaluates to the true literal when the predicate is true and the false literal when it is false.
 
 ```rust
 if cfg!(unix) {
@@ -106,12 +97,7 @@ See also:
 
 ## Features
 
-Conditional compilation is also helpful when there is a need for providing
-optional dependencies. With cargo "features", a package defines a set of named
-features in the `[features]` table of Cargo.toml, and each feature can either be
-enabled or disabled. Features for the package being built can be enabled on the
-command-line with flags such as `--features`. Features for dependencies can be
-enabled in the dependency declaration in Cargo.toml.
+Conditional compilation is also helpful when there is a need for providing optional dependencies. With cargo "features", a package defines a set of named features in the `[features]` table of Cargo.toml, and each feature can either be enabled or disabled. Features for the package being built can be enabled on the command-line with flags such as `--features`. Features for dependencies can be enabled in the dependency declaration in Cargo.toml.
 
 See also:
 

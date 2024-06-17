@@ -1,9 +1,6 @@
 # Equality
 
-When comparing for equality in JavaScript, this refers to testing for _equivalence_ insome cases (also known as _value equality_), and in other cases it refers to
-testing for _reference equality_, which tests whether two variables refer to the
-same underlying object in memory. In JavaScript, while there is no syntax for explicitly custom types, custom types can be simulated through constructors and prototypes. Constructors allow you to create objects with specific properties and methods, and you can use prototypes to implement inheritance and shared methods. Every "custom type" can be compared for equality
-because it inherits from `object`.
+When comparing for equality in JavaScript, this refers to testing for _equivalence_ insome cases (also known as _value equality_), and in other cases it refers to testing for _reference equality_, which tests whether two variables refer to the same underlying object in memory. In JavaScript, while there is no syntax for explicitly custom types, custom types can be simulated through constructors and prototypes. Constructors allow you to create objects with specific properties and methods, and you can use prototypes to implement inheritance and shared methods. Every "custom type" can be compared for equality because it inherits from `object`.
 
 For example, when comparing for equivalence and reference equality in JavaScript:
 
@@ -48,13 +45,9 @@ fn main() {
 }
 ```
 
-The compiler error above illustrates that in Rust equality comparisons are
-_always_ related to a trait implementation. To support a comparison using `==`,
-a type must implement [`PartialEq`][partialeq.rs].
+The compiler error above illustrates that in Rust equality comparisons are _always_ related to a trait implementation. To support a comparison using `==`, a type must implement [`PartialEq`][partialeq.rs].
 
-Fixing the example above means deriving `PartialEq` for `Point`. Per default,
-deriving `PartialEq` will compare all fields for equality, which therefore have
-to implement `PartialEq` themselves.
+Fixing the example above means deriving `PartialEq` for `Point`. Per default, deriving `PartialEq` will compare all fields for equality, which therefore have to implement `PartialEq` themselves.
 
 ```rust
 #[derive(Copy, Clone, PartialEq)]

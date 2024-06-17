@@ -1,7 +1,6 @@
 # Custom Types
 
-The following sections discuss various topics and constructs related to
-developing custom types:
+The following sections discuss various topics and constructs related to developing custom types:
 
 - [Classes](classes.md)
 - [Records](records.md)

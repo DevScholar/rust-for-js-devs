@@ -29,28 +29,11 @@ if (!value) {
 }
 ```
 
-```csharp
-using System;
+Rust is providing the same functionality of accessing an environment variable at runtime via the `var` and `var_os` functions from the `std::env` module.
 
-const string name = "EXAMPLE_VARIABLE";
+`var` function is returning a `Result<String, VarError>`, either returning the variable if set or returning an error if the variable is not set or it is not valid Unicode.
 
-var value = Environment.GetEnvironmentVariable(name);
-if (string.IsNullOrEmpty(value))
-    Console.WriteLine($"Variable '{name}' not set.");
-else
-    Console.WriteLine($"Variable '{name}' set to '{value}'.");
-```
-
-Rust is providing the same functionality of accessing an environment variable at
-runtime via the `var` and `var_os` functions from the `std::env` module.
-
-`var` function is returning a `Result<String, VarError>`, either returning the
-variable if set or returning an error if the variable is not set or it is not
-valid Unicode.
-
-`var_os` has a different signature giving back an `Option<OsString>`, either
-returning some value if the variable is set, or returning None if the variable
-is not set. An `OsString` is not required to be valid Unicode.
+`var_os` has a different signature giving back an `Option<OsString>`, either returning some value if the variable is set, or returning None if the variable is not set. An `OsString` is not required to be valid Unicode.
 
 ```rust
 use std::env;
@@ -77,10 +60,7 @@ fn main() {
 }
 ```
 
-Rust is also providing the functionality of accessing an environment variable at
-compile time. The `env!` macro from `std::env` expands the value of the variable
-at compile time, returning a `&'static str`. If the variable is not set, an
-error is emitted.
+Rust is also providing the functionality of accessing an environment variable at compile time. The `env!` macro from `std::env` expands the value of the variable at compile time, returning a `&'static str`. If the variable is not set, an error is emitted.
 
 ```rust
 use std::env;
@@ -125,9 +105,7 @@ Other providers examples can be found in the official documentation
 A similar configuration experience in Rust is available via use of third-party
 crates such as [figment] or [config].
 -->
-In Rust it is available via use of third-party
-crates such as [figment] or [config].
-See the following example making use of [config] crate:
+In Rust it is available via use of third-party crates such as [figment] or [config]. See the following example making use of [config] crate:
 
 ```rust
 use config::{Config, Environment};

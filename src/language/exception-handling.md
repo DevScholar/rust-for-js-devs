@@ -1,16 +1,8 @@
 # Exception Handling
 
-In JavaScript, an exception should always be an [`Error`][js-system-exception] object or an instance of an `Error` subclass. Exceptions are thrown if a
-problem occurs in a code section. A thrown exception is passed up the stack
-until the application handles it or the program terminates.
+In JavaScript, an exception should always be an [`Error`][js-system-exception] object or an instance of an `Error` subclass. Exceptions are thrown if a problem occurs in a code section. A thrown exception is passed up the stack until the application handles it or the program terminates.
 
-Rust does not have exceptions, but distinguishes between _recoverable_ and
-_unrecoverable_ errors instead. A recoverable error represents a problem that
-should be reported, but for which the program continues. Results of operations
-that can fail with recoverable errors are of type [`Result<T, E>`][rust-result],
-where `E` is the type of the error variant. The [`panic!`][panic] macro stops
-execution when the program encounters an unrecoverable error. An unrecoverable
-error is always a symptom of a bug.
+Rust does not have exceptions, but distinguishes between _recoverable_ and _unrecoverable_ errors instead. A recoverable error represents a problem that should be reported, but for which the program continues. Results of operations that can fail with recoverable errors are of type [`Result<T, E>`][rust-result], where `E` is the type of the error variant. The [`panic!`][panic] macro stops execution when the program encounters an unrecoverable error. An unrecoverable error is always a symptom of a bug.
 
 ## Custom error types
 
@@ -25,9 +17,7 @@ class EmployeeListNotFoundException extends Error {
 }
 ```
 
-In Rust, one can implement the basic expectations for error values by
-implementing the [`Error`][rust-std-error] trait. The minimal user-defined error
-implementation in Rust is:
+In Rust, one can implement the basic expectations for error values by implementing the [`Error`][rust-std-error] trait. The minimal user-defined error implementation in Rust is:
 
 ```rust
 #[derive(Debug)]
@@ -42,10 +32,7 @@ impl std::fmt::Display for EmployeeListNotFound {
 impl std::error::Error for EmployeeListNotFound {}
 ```
 
-The equivalent to the JavaScript `Error.cause` property is the
-`Error::source()` method in Rust. However, it is not required to provide an
-implementation for `Error::source()`, the blanket (default) implementation
-returns a `None`.
+The equivalent to the JavaScript `Error.cause` property is the `Error::source()` method in Rust. However, it is not required to provide an implementation for `Error::source()`, the blanket (default) implementation returns a `None`.
 
 ## Raising exceptions
 
@@ -84,14 +71,9 @@ fn panic_if_negative(value: i32) {
 
 ## Error propagation
 
-In .NET, exceptions are passed up until they are handled or the
-program terminates. In Rust, unrecoverable errors behave similarly, but handling
-them is uncommon.
+In .NET, exceptions are passed up until they are handled or the program terminates. In Rust, unrecoverable errors behave similarly, but handling them is uncommon.
 
-Recoverable errors, however, need to be propagated and handled explicitly. Their
-presence is always indicated by the Rust function or method signature. Catching
-an exception allows you to take action based on the presence or absence of an
-error in JavaScript:
+Recoverable errors, however, need to be propagated and handled explicitly. Their presence is always indicated by the Rust function or method signature. Catching an exception allows you to take action based on the presence or absence of an error in JavaScript:
 
 ```csharp
 //JavaScript doesn't have a file system in it. People often implement file systems using the BrowserFS library that mimic Node.js APIs.
@@ -118,10 +100,7 @@ fn write() {
 }
 ```
 
-Frequently, recoverable errors need only be propagated instead of being handled.
-For this, the method signature needs to be compatible with the types of the
-propagated error. The [`?` operator][question-mark-operator] propagates errors
-ergonomically:
+Frequently, recoverable errors need only be propagated instead of being handled. For this, the method signature needs to be compatible with the types of the propagated error. The [`?` operator][question-mark-operator] propagates errors ergonomically:
 
 ```rust
 fn write() -> Result<(), std::io::Error> {
@@ -131,21 +110,16 @@ fn write() -> Result<(), std::io::Error> {
 }
 ```
 
-**Note**: to propagate an error with the question mark operator the error
-implementations need to be _compatible_, as described in [_a shortcut for
-propagating errors_][propagating-errors-rust-book]. The most general
-"compatible" error type is the error [trait object] `Box<dyn Error>`.
+**Note**: to propagate an error with the question mark operator the error implementations need to be _compatible_, as described in [_a shortcut for propagating errors_][propagating-errors-rust-book]. The most general "compatible" error type is the error [trait object] `Box<dyn Error>`.
 
 ## Stack traces
 
 <!--Throwing an unhandled exception in .NET will cause the runtime to print a stack
 trace that allows debugging the problem with additional context.-->
 
-For unrecoverable errors in Rust, [`panic!` Backtraces][panic-backtrace] offer a
-similar behavior.
+For unrecoverable errors in Rust, [`panic!` Backtraces][panic-backtrace] offer a similar behavior.
 
-Recoverable errors in stable Rust do not yet support Backtraces, but it is
-currently supported in experimental Rust when using the [provide method].
+Recoverable errors in stable Rust do not yet support Backtraces, but it is currently supported in experimental Rust when using the [provide method].
 
 [js-system-exception]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error
 [rust-result]: https://doc.rust-lang.org/std/result/enum.Result.html

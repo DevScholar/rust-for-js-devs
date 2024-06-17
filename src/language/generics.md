@@ -1,9 +1,6 @@
 # Generics
 
-Generics provide a way to create definitions for types and methods that
-can be parameterized over other types. This improves code reuse, type-safety
-and performance (e.g. avoid run-time casts). Consider the following example
-of a generic type that adds a timestamp to any value. However, JavaScript does not have the concept of generics.
+Generics provide a way to create definitions for types and methods that can be parameterized over other types. This improves code reuse, type-safety and performance (e.g. avoid run-time casts). Consider the following example of a generic type that adds a timestamp to any value. However, JavaScript does not have the concept of generics.
 
 ```js
 class Timestamped {
@@ -75,11 +72,7 @@ impl<T> PartialEq for Timestamped<T>
 
 Generic type constraints are called [bounds][bounds.rs] in Rust.
 
-In Rust, this is
-flexible because it `Timestamped<T>` _conditionally implements_ `PartialEq`.
-This means that `Timestamped<T>` instances can still be created for some
-non-equatable `T`, but then `Timestamped<T>` will not implement equality via
-`PartialEq` for such a `T`.
+In Rust, this is flexible because it `Timestamped<T>` _conditionally implements_ `PartialEq`. This means that `Timestamped<T>` instances can still be created for some non-equatable `T`, but then `Timestamped<T>` will not implement equality via `PartialEq` for such a `T`.
 
 See also:
 

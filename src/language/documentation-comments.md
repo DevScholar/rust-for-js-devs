@@ -1,9 +1,6 @@
 # Documentation Comments
 
-A third-party tool called JSDoc provides a mechanism to document the API for types using a comment syntax. JSDoc includes a Markdown plugin that automatically converts Markdown-formatted text to HTML. The comment contains
-structured data representing the comments and the API signatures. Other tools
-can process that output to provide human-readable documentation in a different
-form. A simple example in JavaScript:
+A third-party tool called JSDoc provides a mechanism to document the API for types using a comment syntax. JSDoc includes a Markdown plugin that automatically converts Markdown-formatted text to HTML. The comment contains structured data representing the comments and the API signatures. Other tools can process that output to provide human-readable documentation in a different form. A simple example in JavaScript:
 
 ```js
 public class MyClass {}
@@ -14,10 +11,7 @@ public class MyClass {}
 class MyClass {}
 ```
 
-In Rust [doc comments] provide the equivalent to JSDoc documentation comments.
-Documentation comments in Rust use Markdown syntax. [`rustdoc`][rustdoc] is the
-documentation compiler for Rust code and is usually invoked through [`cargo
-doc`][cargo doc], which compiles the comments into documentation. For example:
+In Rust [doc comments] provide the equivalent to JSDoc documentation comments. Documentation comments in Rust use Markdown syntax. [`rustdoc`][rustdoc] is the documentation compiler for Rust code and is usually invoked through [`cargo doc`][cargo doc], which compiles the comments into documentation. For example:
 
 ```rust
 /// This is a doc comment for `MyStruct`.

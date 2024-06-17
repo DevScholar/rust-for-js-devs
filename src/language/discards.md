@@ -1,10 +1,8 @@
 # Discards
 
-Discards express to the compiler and others to ignore the
-results (or parts) of an expression.
+Discards express to the compiler and others to ignore the results (or parts) of an expression.
 
-There are multiple contexts where to apply this, for example as a basic example,
-to ignore the result of an expression. JavaScript doesn't have discards, but you can call a function without assigning a value to any variable to emulate discards. In JavaScript this looks like:
+There are multiple contexts where to apply this, for example as a basic example, to ignore the result of an expression. JavaScript doesn't have discards, but you can call a function without assigning a value to any variable to emulate discards. In JavaScript this looks like:
 
 ```js
 city.getCityInformation(cityName);
@@ -29,9 +27,7 @@ and, identically, in Rust:
 let (_, second) = ("first", "second");
 ```
 
-In addition to destructuring tuples, Rust offers
-[destructuring][rust-destructuring] of structs and enums using `..`, where `..`
-stands for the remaining part of a type:
+In addition to destructuring tuples, Rust offers [destructuring][rust-destructuring] of structs and enums using `..`, where `..` stands for the remaining part of a type:
 
 ```rust
 struct Point {
@@ -47,8 +43,7 @@ match origin {
 }
 ```
 
-When pattern matching, it is often useful to discard or ignore part of a
-matching expression. But since there are no discards in JavaScript, and the switch statement of js cannot be used in the same way as rust, you have to emulate this feature in an awkward way:
+When pattern matching, it is often useful to discard or ignore part of a matching expression. But since there are no discards in JavaScript, and the switch statement of js cannot be used in the same way as rust, you have to emulate this feature in an awkward way:
 
 ```js
 const _ = ("first", "second");

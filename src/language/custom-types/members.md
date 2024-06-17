@@ -2,11 +2,7 @@
 
 ## Constructors
 
-Rust does not have any notion of constructors. Instead, you just write factory
-functions that return an instance of the type. The factory functions can be
-stand-alone or _associated functions_ of the type. <!--In C# terms, associated
-functions are like having static methods on a type.--> Conventionally, if there
-is just one factory function for a `struct`, it's named `new`:
+Rust does not have any notion of constructors. Instead, you just write factory functions that return an instance of the type. The factory functions can be stand-alone or _associated functions_ of the type. <!--In C# terms, associated functions are like having static methods on a type.--> Conventionally, if there is just one factory function for a `struct`, it's named `new`:
 
 ```rust
 struct Rectangle {
@@ -21,17 +17,14 @@ impl Rectangle {
 }
 ```
 
-Since Rust functions (associated or otherwise) do not support overloading; the
-factory functions have to be named uniquely. For example, below are some
-examples of so-called constructors or factory functions available on `String`:
+Since Rust functions (associated or otherwise) do not support overloading; the factory functions have to be named uniquely. For example, below are some examples of so-called constructors or factory functions available on `String`:
 
 - `String::new`: creates an empty string.
 - `String::with_capacity`: creates a string with an initial buffer capacity.
 - `String::from_utf8`: creates a string from bytes of UTF-8 encoded text.
 - `String::from_utf16`: creates a string from bytes of UTF-16 encoded text.
 
-In the case of an `enum` type in Rust, the variants act as the constructors.
-See [the section on enumeration types][enums] for more.
+In the case of an `enum` type in Rust, the variants act as the constructors. See [the section on enumeration types][enums] for more.
 
 See also:
 
@@ -42,13 +35,7 @@ See also:
 
 ## Methods (static & instance-based)
 
-Rust types (both `enum` and `struct`), can have static and
-instance-based methods. In Rust-speak, a _method_ is always instance-based and
-is identified by the fact that its first parameter is named `self`. The `self`
-parameter has no type annotation since it's always the type to which the
-method belongs. A static method is called an _associated function_. In the
-example below, `new` is an associated function and the rest (`length`, `width`
-and `area`) are methods of the type:
+Rust types (both `enum` and `struct`), can have static and instance-based methods. In Rust-speak, a _method_ is always instance-based and is identified by the fact that its first parameter is named `self`. The `self` parameter has no type annotation since it's always the type to which the method belongs. A static method is called an _associated function_. In the example below, `new` is an associated function and the rest (`length`, `width` and `area`) are methods of the type:
 
 ```rust
 struct Rectangle {
@@ -77,9 +64,7 @@ impl Rectangle {
 
 ## Constants
 
-A type in Rust can have constants. However, the most interesting
-aspect to note is that Rust allows a type instance to be defined as a constant
-too:
+A type in Rust can have constants. However, the most interesting aspect to note is that Rust allows a type instance to be defined as a constant too:
 
 ```rust
 struct Point {
@@ -111,14 +96,11 @@ Rust has no built-in support for type members to adverstise and fire events.
 
 ## Properties
 
-Rust only has methods [where a getter is named after the
-field (in Rust method names can share the same identifier as a field) and the
-setter uses a `set_` prefix][get-set-name.rs].
+Rust only has methods [where a getter is named after the field (in Rust method names can share the same identifier as a field) and the setter uses a `set_` prefix][get-set-name.rs].
 
   [get-set-name.rs]: https://github.com/rust-lang/rfcs/blob/master/text/0344-conventions-galore.md#gettersetter-apis
 
-Below is an example showing how property-like accessor methods typically look
-for a type in Rust:
+Below is an example showing how property-like accessor methods typically look for a type in Rust:
 
 ```rust
 struct Rectangle {
@@ -184,11 +166,7 @@ sb.wrap(">>> ", " <<<");
 console.log(sb.toString()); 
 ```
 
-Note that for an extension method to become available (2), the namespace with
-the type containing the extension method must be imported (1). Rust offers a
-very similar facility via traits, called _extension traits_. The following
-example in Rust is the equivalent of the C# example above; it extends `String`
-with the method `wrap`:
+Note that for an extension method to become available (2), the namespace with the type containing the extension method must be imported (1). Rust offers a very similar facility via traits, called _extension traits_. The following example in Rust is the equivalent of the C# example above; it extends `String` with the method `wrap`:
 
 ```rust
 #![allow(dead_code)]
@@ -216,22 +194,13 @@ fn main() {
 ```
 
 <!--Just like in C#, for the method in the extension trait to become available
-(2), the extension trait must be imported (1).--> Also note, the extension trait
-identifier `StrWrapExt` can itself be discarded via `_` at the time of import
-without affecting the availability of `wrap` for `String`.
+(2), the extension trait must be imported (1).--> Also note, the extension trait identifier `StrWrapExt` can itself be discarded via `_` at the time of import without affecting the availability of `wrap` for `String`.
 
 ## Visibility/Access modifiers
 
 In JavaScript, there is no explicit visibility modifier like in C#, but similar functionality can be achieved with some conventions.
 
-In Rust, a compilation is built-up of a tree of modules where modules contain
-and define [_items_][items] like types, traits, enums, constants and
-functions. Almost everything is private by default. One exception is, for
-example, _associated items_ in a public trait, which are public by default.
-This is similar to how members of a C# interface declared without any public
-modifiers in the source code are public by default. Rust only has the `pub`
-modifier to change the visibility with respect to the module tree. There
-are variations of `pub` that change the scope of the public visibility:
+In Rust, a compilation is built-up of a tree of modules where modules contain and define [_items_][items] like types, traits, enums, constants and functions. Almost everything is private by default. One exception is, for example, _associated items_ in a public trait, which are public by default. This is similar to how members of a C# interface declared without any public modifiers in the source code are public by default. Rust only has the `pub` modifier to change the visibility with respect to the module tree. There are variations of `pub` that change the scope of the public visibility:
 
 - `pub(self)`
 - `pub(super)`
@@ -262,10 +231,7 @@ The table below is an approximation of the mapping of C# and Rust modifiers:
 -->
 ## Mutability
 
-When designing a type in JavaScript, it is not the responsiblity of the developer to
-decide whether the a type is mutable or immutable; whether it supports
-destructive or non-destructive mutations. In Rust, mutability is expressed on methods through the type
-of the `self` parameter as shown in the example below:
+When designing a type in JavaScript, it is not the responsiblity of the developer to decide whether the a type is mutable or immutable; whether it supports destructive or non-destructive mutations. In Rust, mutability is expressed on methods through the type of the `self` parameter as shown in the example below:
 
 ```rust
 struct Point { x: i32, y: i32 }
@@ -302,8 +268,7 @@ pt = { ...pt, X: 789 };
 console.log(pt); // prints: Point { X = 789, Y = 456 }
 ```
 
-There is no `with` in Rust, but to emulate something similar in Rust, it has
-to be baked into the type's design:
+There is no `with` in Rust, but to emulate something similar in Rust, it has to be baked into the type's design:
 
 ```rust
 struct Point { x: i32, y: i32 }
@@ -361,10 +326,6 @@ fn main() {
 }
 ```
 
-<!--However, while `with` in C# does a non-destructive mutation (copy then
-update), the [struct update syntax] does (partial) _moves_ and works with
-fields only.--> Since the syntax requires access to the type's fields, it is
-generally more common to use it within the Rust module that has access to
-private details of its types.
+<!--However, while `with` in C# does a non-destructive mutation (copy then update), the [struct update syntax] does (partial) _moves_ and works with fields only.--> Since the syntax requires access to the type's fields, it is generally more common to use it within the Rust module that has access to private details of its types.
 
   [struct update syntax]: https://doc.rust-lang.org/stable/book/ch05-01-defining-structs.html#creating-instances-from-other-instances-with-struct-update-syntax

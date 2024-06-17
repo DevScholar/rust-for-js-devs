@@ -1,8 +1,6 @@
 # Asynchronous Programming
 
-Both JavaScript and Rust support asynchronous programming models, which look similar
-to each other with respect to their usage. The following example shows, on a
-very high level, how async code looks like in JavaScript:
+Both JavaScript and Rust support asynchronous programming models, which look similar to each other with respect to their usage. The following example shows, on a very high level, how async code looks like in JavaScript:
 
 ```js
 async function printDelayed(message, cancellationToken) {
@@ -11,8 +9,7 @@ async function printDelayed(message, cancellationToken) {
 }
 ```
 
-Rust code is structured similarly. The following sample relies on [async-std]
-for the implementation of `sleep`:
+Rust code is structured similarly. The following sample relies on [async-std] for the implementation of `sleep`:
 
 ```rust
 use std::time::Duration;
@@ -24,19 +21,11 @@ async fn format_delayed(message: &str) -> String {
 }
 ```
 
-1. The Rust [`async`][async.rs] keyword transforms a block of code into a state
-   machine that implements a trait called [`Future`][future.rs]. In both
-   languages, this allows for writing asynchronous code sequentially.
+1. The Rust [`async`][async.rs] keyword transforms a block of code into a state machine that implements a trait called [`Future`][future.rs]. In both languages, this allows for writing asynchronous code sequentially.
 
-2. Note that for both Rust and JavaScript, asynchronous methods/functions are prefixed
-   with the async keyword, but the return types are different. Asynchronous
-   methods in JavaScript indicate the full and actual return type because it can vary.
-   In Rust, it is enough to specify the _inner type_
-   `String` because it's _always some future_; that is, a type that implements
-   the `Future` trait.
+2. Note that for both Rust and JavaScript, asynchronous methods/functions are prefixed with the async keyword, but the return types are different. Asynchronous methods in JavaScript indicate the full and actual return type because it can vary. In Rust, it is enough to specify the _inner type_ `String` because it's _always some future_; that is, a type that implements the `Future` trait.
 
-1. The `await` keywords are in different positions in JavaScript and Rust. In C#, a
-   `Promise` is awaited by prefixing the expression with `await`. In Rust,
+3. The `await` keywords are in different positions in JavaScript and Rust. In C#, `Promise` is awaited by prefixing the expression with `await`. In Rust,
    suffixing the expression with the `.await` keyword allows for _method
    chaining_, even though `await` is not a method.
 
@@ -51,8 +40,7 @@ See also:
 
 ## Executing tasks
 
-From the following example the `PrintDelayed` method executes, even though it is
-not awaited:
+From the following example the `PrintDelayed` method executes, even though it is not awaited:
 
 ```js
 let cancellationToken = undefined; 
@@ -83,21 +71,9 @@ async fn print_delayed(message: &str) {
 }
 ```
 
-This is because futures are lazy: they do nothing until they are run. The most
-common way to run a `Future` is to `.await` it. When `.await` is called on a
-`Future`, it will attempt to run it to completion. If the `Future` is blocked,
-it will yield control of the current thread. When more progress can be made, the
-`Future` will be picked up by the executor and will resume running, allowing the
-`.await` to resolve (see [`async/.await`][async-await.rs]).
+This is because futures are lazy: they do nothing until they are run. The most common way to run a `Future` is to `.await` it. When `.await` is called on a `Future`, it will attempt to run it to completion. If the `Future` is blocked, it will yield control of the current thread. When more progress can be made, the `Future` will be picked up by the executor and will resume running, allowing the `.await` to resolve (see [`async/.await`][async-await.rs]).
 
-While awaiting a function works from within other `async` functions, `main` [is
-not allowed to be `async`][error-E0752]. This is a consequence of the fact that
-Rust itself does not provide a runtime for executing asynchronous code. Hence,
-there are libraries for executing asynchronous code, called [async runtimes].
-[Tokio][tokio.rs] is such an async runtime, and it is frequently used.
-[`tokio::main`][tokio-main.rs] from the above example marks the `async main`
-function as entry point to be executed by a runtime, which is set up
-automatically when using the macro.
+While awaiting a function works from within other `async` functions, `main` [is not allowed to be `async`][error-E0752]. This is a consequence of the fact that Rust itself does not provide a runtime for executing asynchronous code. Hence, there are libraries for executing asynchronous code, called [async runtimes]. [Tokio][tokio.rs] is such an async runtime, and it is frequently used. [`tokio::main`][tokio-main.rs] from the above example marks the `async main` function as entry point to be executed by a runtime, which is set up automatically when using the macro.
 
 [tokio.rs]: https://crates.io/crates/tokio
 [tokio-main.rs]: https://docs.rs/tokio/latest/tokio/attr.main.html
@@ -107,32 +83,19 @@ automatically when using the macro.
 
 ## Task cancellation
 
-The previous JavaScript examples included passing a `CancellationToken` to asynchronous
-methods, as is considered best practice in JavaScript. `CancellationToken`s can be
-used to abort an asynchronous operation.
+The previous JavaScript examples included passing a `CancellationToken` to asynchronous methods, as is considered best practice in JavaScript. `CancellationToken`s can be used to abort an asynchronous operation.
 
-Because futures are inert in Rust (they make progress only when polled),
-cancellation works differently in Rust. When dropping a `Future`, the `Future`
-will make no further progress. It will also drop all instantiated values up to
-the point where the future is suspended due to some outstanding asynchronous
-operation. This is why most asynchronous functions in Rust don't take an
-argument to signal cancellation, and is why dropping a future is sometimes being
-referred to as _cancellation_.
+Because futures are inert in Rust (they make progress only when polled), cancellation works differently in Rust. When dropping a `Future`, the `Future` will make no further progress. It will also drop all instantiated values up to the point where the future is suspended due to some outstanding asynchronous operation. This is why most asynchronous functions in Rust don't take an argument to signal cancellation, and is why dropping a future is sometimes being referred to as _cancellation_.
 
-[`tokio_util::sync::CancellationToken`][cancellation-token.rs] offers an
-equivalent to the .NET `CancellationToken` to signal and react to cancellation,
-for cases where implementing the `Drop` trait on a `Future` is unfeasible.
+[`tokio_util::sync::CancellationToken`][cancellation-token.rs] offers an equivalent to the .NET `CancellationToken` to signal and react to cancellation, for cases where implementing the `Drop` trait on a `Future` is unfeasible.
 
 [cancellation-token.rs]: https://docs.rs/tokio-util/latest/tokio_util/sync/struct.CancellationToken.html
 
 ## Executing multiple Tasks
 
-In JavaScript, `Promise.race` and `Task.WhenAll` are frequently used to handle the
-execution of multiple tasks.
+In JavaScript, `Promise.race` and `Task.WhenAll` are frequently used to handle the execution of multiple tasks.
 
-`Promise.race` completes as soon as any task completes. Tokio, for example,
-provides the [`tokio::select!`][tokio-select] macro as an alternative for
-`Promise.race`, which means to wait on multiple concurrent branches.
+`Promise.race` completes as soon as any task completes. Tokio, for example, provides the [`tokio::select!`][tokio-select] macro as an alternative for `Promise.race`, which means to wait on multiple concurrent branches.
 
 ```js
 const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
@@ -172,9 +135,7 @@ async fn delay(delay: Duration) -> String {
 }
 ```
 
-Again, there are crucial differences in semantics between the two examples. Most
-importantly, `tokio::select!` will cancel all remaining branches, while
-`Promise.race` leaves it up to the user to cancel any in-flight tasks.
+Again, there are crucial differences in semantics between the two examples. Most importantly, `tokio::select!` will cancel all remaining branches, while `Promise.race` leaves it up to the user to cancel any in-flight tasks.
 
 Similarly, `Promise.all` can be replaced with [`tokio::join!`][tokio-join].
 
@@ -183,11 +144,7 @@ Similarly, `Promise.all` can be replaced with [`tokio::join!`][tokio-join].
 
 ## Multiple consumers
 
-In JavaScript a `Promise` can be used across multiple consumers. All of them can await
-the task and get notified when the task is completed or failed. In Rust, the
-`Future` can not be cloned or copied, and `await`ing will move the ownership.
-The `futures::FutureExt::shared` extension creates a cloneable handle to a
-`Future`, which then can be distributed across multiple consumers.
+In JavaScript a `Promise` can be used across multiple consumers. All of them can await the task and get notified when the task is completed or failed. In Rust, the `Future` can not be cloned or copied, and `await`ing will move the ownership. The `futures::FutureExt::shared` extension creates a cloneable handle to a `Future`, which then can be distributed across multiple consumers.
 
 ```rust
 use futures::FutureExt;
@@ -225,13 +182,9 @@ async fn background_operation(cancellation_token: CancellationToken) {
 
 ## Asynchronous iteration
 
-Rust does not yet have an API for
-asynchronous iteration in the standard library. To support asynchronous
-iteration, the [`Stream`][stream.rs] trait from [`futures`][futures-stream.rs]
-offers a comparable set of functionality.
+Rust does not yet have an API for asynchronous iteration in the standard library. To support asynchronous iteration, the [`Stream`][stream.rs] trait from [`futures`][futures-stream.rs] offers a comparable set of functionality.
 
-In JavaScript, writing async iterators has comparable syntax to when writing synchronous
-iterators:
+In JavaScript, writing async iterators has comparable syntax to when writing synchronous iterators:
 
 ```js
 async function* RangeAsync(start, count) {
@@ -248,9 +201,7 @@ async function* RangeAsync(start, count) {
 })();
 ```
 
-In Rust, there are several types that implement the `Stream` trait, and hence
-can be used for creating streams, e.g. `futures::channel::mpsc`. [`async-stream`][tokio-async-stream] offers a set of macros that
-can be used to generate streams succinctly.
+In Rust, there are several types that implement the `Stream` trait, and hence can be used for creating streams, e.g. `futures::channel::mpsc`. [`async-stream`][tokio-async-stream] offers a set of macros that can be used to generate streams succinctly.
 
 ```rust
 use async_stream::stream;

@@ -1,9 +1,6 @@
 # Conversion and Casting
 
-Rust is statically-typed at compile time. Hence, after a variable
-is declared, assigning a value of a value of a different type (unless it's
-implicitly convertible to the target type) to the variable is prohibited. There
-are several ways to convert types in Rust.
+Rust is statically-typed at compile time. Hence, after a variable is declared, assigning a value of a value of a different type (unless it's implicitly convertible to the target type) to the variable is prohibited. There are several ways to convert types in Rust.
 
 ## Implicit conversions
 
@@ -53,9 +50,7 @@ let b = parseInt(a);
 
 Explicit conversions can potentially fail at run-time with exceptions when _down-casting_.
 
-Rust does not provide coercion between primitive types, but instead uses
-[explicit conversion][casting.rs] using the [`as`][as.rs] keyword (casting).
-Casting in Rust will not cause a panic.
+Rust does not provide coercion between primitive types, but instead uses [explicit conversion][casting.rs] using the [`as`][as.rs] keyword (casting). Casting in Rust will not cause a panic.
 
 ```rust
 let int_number: i32 = 1;
@@ -71,12 +66,7 @@ let long_number: i64 = int_number as _;
 type to another type. Also, `System.IConvertible` serves the purpose of
 converting one type into another.-->
 
-In Rust, the standard library contains an abstraction for converting a value
-into a different type, in form of the [`From`][from.rs] trait and its
-reciprocal, [`Into`][into.rs]. When implementing `From` for a type, a default
-implementation for `Into` is automatically provided (called _blanket
-implementation_ in Rust). The following example illustrates two of such type
-conversions:
+In Rust, the standard library contains an abstraction for converting a value into a different type, in form of the [`From`][from.rs] trait and its reciprocal, [`Into`][into.rs]. When implementing `From` for a type, a default implementation for `Into` is automatically provided (called _blanket implementation_ in Rust). The following example illustrates two of such type conversions:
 
 ```rust
 fn main() {
@@ -95,8 +85,7 @@ impl From<MyId> for String {
 
 See also:
 
-- [`TryFrom`][try-from.rs] and [`TryInto`][try-into.rs] for versions of `From`
-  and `Into` which can fail.
+- [`TryFrom`][try-from.rs] and [`TryInto`][try-into.rs] for versions of `From` and `Into` which can fail.
 
 [from.rs]: https://doc.rust-lang.org/std/convert/trait.From.html
 [into.rs]: https://doc.rust-lang.org/std/convert/trait.Into.html

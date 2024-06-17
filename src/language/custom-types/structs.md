@@ -3,9 +3,7 @@
 In JavaScript, there is no direct concept of a structure, but you can use objects to model similar structures.
 Structures in Rust:
 
-- In Rust, `struct` simply
-  defines the data/fields. The behavioural aspects in terms of functions and
-  methods, are defined separately in an _implementation block_ (`impl`).
+- In Rust, `struct` simply defines the data/fields. The behavioural aspects in terms of functions and methods, are defined separately in an _implementation block_ (`impl`).
 
 - They can implement multiple traits in Rust.
 
@@ -14,11 +12,9 @@ Structures in Rust:
 - They are allocated on stack by default, unless:
   - In Rust, wrapped in a smart pointer like `Box`, `Rc`/`Arc`.
 
-In Rust, a `struct` is the primary construct for modeling any data structure (the
-other being an `enum`).
+In Rust, a `struct` is the primary construct for modeling any data structure (the other being an `enum`).
 
-A `struct` in Rust requires just one more step using [the
-`#derive` attribute][derive] and listing the traits to be implemented:
+A `struct` in Rust requires just one more step using [the `#derive` attribute][derive] and listing the traits to be implemented:
 
   [derive]: https://doc.rust-lang.org/stable/reference/attributes/derive.html
 
@@ -30,15 +26,9 @@ struct Point {
 }
 ```
 
-Value types in JavaScript are usually designed by a developer to be mutable.
-It's considered best practice speaking semantically, but the language does not
-prevent designing a `struct` that makes destructive or in-place modifications.
-In Rust, it's the same. A type has to be consciously developed to be
-immutable.
+Value types in JavaScript are usually designed by a developer to be mutable. It's considered best practice speaking semantically, but the language does not prevent designing a `struct` that makes destructive or in-place modifications. In Rust, it's the same. A type has to be consciously developed to be immutable.
 
-Since Rust doesn't have classes and consequently type hierarchies based on
-sub-classing, shared behaviour is achieved via traits and generics and
-polymorphism via virtual dispatch using [trait objects].
+Since Rust doesn't have classes and consequently type hierarchies based on sub-classing, shared behaviour is achieved via traits and generics and polymorphism via virtual dispatch using [trait objects].
 
   [trait objects]: https://doc.rust-lang.org/book/ch17-02-trait-objects.html#using-trait-objects-that-allow-for-values-of-different-types
 
@@ -141,10 +131,7 @@ impl Display for Rectangle {
 }
 ```
 
-Since there is no inheritance in Rust, the way a type
-advertises support for some _formatted_ representation is by implementing the
-`Display` trait. This then enables for an instance of the structure to
-participate in formatting, such as shown in the call to `println!` below:
+Since there is no inheritance in Rust, the way a type advertises support for some _formatted_ representation is by implementing the `Display` trait. This then enables for an instance of the structure to participate in formatting, such as shown in the call to `println!` below:
 
 ```rust
 fn main() {
