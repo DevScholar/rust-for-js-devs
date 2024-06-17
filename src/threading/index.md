@@ -1,9 +1,6 @@
 # Threading
 
-The Rust standard library supports threading, synchronisation and concurrency.
-Also the language itself and the standard library do have basic support for the
-concepts, a lot of additional functionality is provided by crates and will not
-be covered in this document.
+The Rust standard library supports threading, synchronisation and concurrency. Also the language itself and the standard library do have basic support for the concepts, a lot of additional functionality is provided by crates and will not be covered in this document.
 
 JavaScript is a single-threaded scripting language that does not support multithreading.
 
@@ -29,8 +26,7 @@ to Rust:
 | `Volatile`         | `std::sync::atomic`       |
 | `ThreadLocal`      | `std::thread_local`       |
 -->
-Below is a simple JavaScript program that creates a thread (where the thread
-prints some text to standard output) indirectly by using `worker` and then waits for it to end:
+Below is a simple JavaScript program that creates a thread (where the thread prints some text to standard output) indirectly by using `worker` and then waits for it to end:
 
 ```js
 // Equivalent JavaScript code using Web Workers
@@ -54,9 +50,7 @@ fn main() {
 }
 ```
 
-Creating and initializing a thread object and starting a thread are two
-different actions in JavaScript whereas in Rust both happen at the same time with
-`thread::spawn`.
+Creating and initializing a thread object and starting a thread are two different actions in JavaScript whereas in Rust both happen at the same time with `thread::spawn`.
 
 In JavaScript, it's possible to send data as an argument to a thread:
 ```js
@@ -92,8 +86,7 @@ t.Join();
 Console.WriteLine($"Phrase: {data}");
 ```-->
 
-In Rust, there is no variation of `thread::spawn` that does the same. Instead,
-the data is passed to the thread via a closure:
+In Rust, there is no variation of `thread::spawn` that does the same. Instead, the data is passed to the thread via a closure:
 
 ```rust
 use std::thread;
@@ -111,16 +104,8 @@ fn main() {
 
 A few things to note:
 
-- The `move` keyword is _required_ to _move_ or pass the ownership of `data`
-  to the closure for the thread. Once this is done, it's no longer legal to
-  continue to use the `data` variable of `main`, in `main`. If that is needed,
-  `data` must be copied or cloned (depending on what the type of the value
-  supports).
+- The `move` keyword is _required_ to _move_ or pass the ownership of `data` to the closure for the thread. Once this is done, it's no longer legal to continue to use the `data` variable of `main`, in `main`. If that is needed, `data` must be copied or cloned (depending on what the type of the value supports).
 
-- Rust thread can return values, which becomes the return
-  value of the `join` method.
+- Rust thread can return values, which becomes the return value of the `join` method.
 
-- It is possible to also pass data to the JavaScript thread via a closure, like the
-  Rust example, but the JavaScript version does not need to worry about ownership
-  since the memory behind the data will be reclaimed by the GC once no one is
-  referencing it anymore.
+- It is possible to also pass data to the JavaScript thread via a closure, like the Rust example, but the JavaScript version does not need to worry about ownership since the memory behind the data will be reclaimed by the GC once no one is referencing it anymore.

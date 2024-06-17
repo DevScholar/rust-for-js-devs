@@ -1,7 +1,6 @@
 # Operator overloading
 
-JavaScript doesn't support operator overloading. Consider the
-following example in JavaScript:
+JavaScript doesn't support operator overloading. Consider the following example in JavaScript:
 
 ```js
 class Fraction {
@@ -22,9 +21,7 @@ class Fraction {
 console.log(Fraction.add(new Fraction(5, 4), new Fraction(1, 2)).toString());  // 输出 "14/8"
 ```
 
-In Rust, many operators [can be overloaded via traits][ops.rs]. This is possible
-because operators are syntactic sugar for method calls. For example, the `+`
-operator in `a + b` calls the `add` method (see [operator overloading]):
+In Rust, many operators [can be overloaded via traits][ops.rs]. This is possible because operators are syntactic sugar for method calls. For example, the `+` operator in `a + b` calls the `add` method (see [operator overloading]):
 
 ```rust
 use std::{fmt::{Display, Formatter, Result}, ops::Add};

@@ -1,12 +1,8 @@
 # Resource Management
 
-Previous section on [memory management] explains the differences between JavaScript
-and Rust when it comes to GC, ownership and finalizers. It is highly recommended
-to read it.
+Previous section on [memory management] explains the differences between JavaScript and Rust when it comes to GC, ownership and finalizers. It is highly recommended to read it.
 
-This section is limited to providing an example of a fictional
-_database connection_ involving a SQL connection to be properly
-closed/disposed/dropped
+This section is limited to providing an example of a fictional _database connection_ involving a SQL connection to be properly closed/disposed/dropped.
 
 ```js
 class DatabaseConnection {
@@ -56,8 +52,6 @@ fn main() {
 } // "Dispose" of "db1" and "db2" called here; when their scope ends
 ```
 
-<!--In .NET, attempting to use an object after calling `Dispose` on it will typically
-cause `ObjectDisposedException` to be thrown at runtime. -->In Rust, the compiler
-ensures at compile-time that this cannot happen.
+<!--In .NET, attempting to use an object after calling `Dispose` on it will typically cause `ObjectDisposedException` to be thrown at runtime. -->In Rust, the compiler ensures at compile-time that attempting to use an object after disposing it will typically cause errors cannot happen.
 
 [memory management]: ../memory-management/index.md

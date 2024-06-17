@@ -1,6 +1,6 @@
 # Structured Types
 
-Commonly used object and collection types in JavaScript and their mapping to Rust
+Commonly used object and collection types in JavaScript and their mapping to Rust.
 
 | JavaScript | Rust      |
 | ---------- | --------- |
@@ -10,7 +10,7 @@ Commonly used object and collection types in JavaScript and their mapping to Rus
 | `object`   | `HashMap` |
 ## Array
 
-Fixed arrays are supported the same way in Rust as in JavaScript
+Fixed arrays are supported the same way in Rust as in JavaScript.
 
 JavaScript:
 
@@ -67,9 +67,7 @@ let (a, b) = something;
 println!("a = {} b = {}", a, b);
 ```
 
-> **NOTE**: Rust tuple elements cannot be named. The only way to
-> access a tuple element is by using the index of the element or deconstructing
-> the tuple.
+> **NOTE**: Rust tuple elements cannot be named. The only way to access a tuple element is by using the index of the element or deconstructing the tuple.
 
 ## Dictionary
 

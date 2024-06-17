@@ -1,8 +1,6 @@
 # Producer-Consumer
 
-The producer-consumer pattern is very common to distribute work between
-threads where data is passed from producing threads to consuming threads
-without the need for sharing or locking. 
+The producer-consumer pattern is very common to distribute work between threads where data is passed from producing threads to consuming threads without the need for sharing or locking. 
 
 ```js
 const workerCode = `
@@ -28,11 +26,9 @@ worker.onmessage = function(event) {
 worker.postMessage(null);
 
 ```
+The same can be done in Rust using _channels_. The standard library primarily provides `mpsc::channel`, which is a channel that supports multiple producers and a single consumer. A rough translation of the above C# example in Rust would look as follows:
 
-The same can be done in Rust using _channels_. The standard library primarily
-provides `mpsc::channel`, which is a channel that supports multiple producers
-and a single consumer. A rough translation of the above C# example in Rust
-would look as follows:
+The same can be done in Rust using _channels_. The standard library primarily provides `mpsc::channel`, which is a channel that supports multiple producers and a single consumer. A rough translation of the above C# example in Rust would look as follows:
 
 ```rust
 use std::thread;
@@ -57,8 +53,6 @@ fn main() {
 }
 ```
 
-The
-equivalent of the [async-friendly channels in the Rust space is offered by the
-Tokio runtime][tokio-channels].
+The equivalent of the [async-friendly channels in the Rust space is offered by the Tokio runtime][tokio-channels].
 
   [tokio-channels]: https://tokio.rs/tokio/tutorial/channels

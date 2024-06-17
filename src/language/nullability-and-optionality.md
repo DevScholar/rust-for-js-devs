@@ -1,16 +1,13 @@
 # Nullability and Optionality
 
-In JavaScript, `null` is often used to represent a value that is missing, absent or
-logically uninitialized. For example:
+In JavaScript, `null` is often used to represent a value that is missing, absent or logically uninitialized. For example:  
 
 ```js
 let some = 1;
 let none = null;
 ```
 
-Rust has no `null` and consequently no nullable context to enable. Optional or
-missing values are instead represented by [`Option<T>`][option]. The
-equivalent of the JavaScript code above in Rust would be:
+Rust has no `null` and consequently no nullable context to enable. Optional or missing values are instead represented by [`Option<T>`][option]. The equivalent of the JavaScript code above in Rust would be:  
 
 ```rust
 let some: Option<i32> = Some(1);
@@ -23,8 +20,7 @@ let none: Option<i32> = None;
 
 ## Control flow with optionality
 
-In JavaScript, you may have been using `if`/`else` statements for controlling the flow
-when using nullable values.
+In JavaScript, you may have been using `if`/`else` statements for controlling the flow when using nullable values.
 
 ```js
 let max = 10;
@@ -55,9 +51,7 @@ if let Some(max) = max {
 
 ## Null-conditional operators
 
-The null-conditional operators (`?.`) make dealing with `null` in JavaScript
-more ergonomic. In Rust, they are best replaced by using the [`map`][optmap]
-method. The following snippets show the correspondence:
+ The null-conditional operators (`?.`) make dealing with `null` in JavaScript more ergonomic. In Rust, they are best replaced by using the [`map`][optmap] method. The following snippets show the correspondence: 
 
 ```js
 let some = "Hello, World!";
@@ -75,8 +69,7 @@ println!("{:?}", none.map(|s| s.len())); // None
 
 ## Null-coalescing operator
 
-The null-coalescing operator (`??`) is typically used to default to another
-value when a nullable is `null`:
+The null-coalescing operator (`??`) is typically used to default to another value when a nullable is `null`:
 
 ```js
 let some = 1;
@@ -94,9 +87,7 @@ println!("{:?}", some.unwrap_or(0)); // 1
 println!("{:?}", none.unwrap_or(0)); // 0
 ```
 
-**Note**: If the default value is expensive to compute, you can use
-`unwrap_or_else` instead. It takes a closure as an argument, which allows you to
-lazily initialize the default value.
+ **Note**: If the default value is expensive to compute, you can use `unwrap_or_else` instead. It takes a closure as an argument, which allows you to lazily initialize the default value. 
 
 ## Null-forgiving operator
 

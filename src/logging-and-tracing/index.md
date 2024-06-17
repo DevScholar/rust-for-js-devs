@@ -1,25 +1,14 @@
 # Logging and Tracing
 
-For most cases, `console.log()` is a good
-default choice for JavaScript, since it works with a variety of built-in and third-party
-logging providers. In JavaScript, a minimal example for structured logging could look
-like:
+For most cases, `console.log()` is a good default choice for JavaScript, since it works with a variety of built-in and third-party logging providers. In JavaScript, a minimal example for structured logging could look like:
 
 ```js
 let day = "Thursday";
 console.log("Hello ", day); // Hello Thursday.
 ```
 
-In Rust, a lightweight logging facade is provided by [log][log.rs]. It has less
-features than `ILogger`, e.g. as it does not yet offer (stable) structured
-logging or logging scopes.
-
-For something with more feature parity to .NET, Tokio offers
-[`tracing`][tracing.rs]. `tracing` is a framework for instrumenting Rust
-applications to collect structured, event-based diagnostic information.
-[`tracing_subscriber`][tracing-subscriber.rs] can be used to implement and
-compose `tracing` subscribers. The same structured logging example from above
-with `tracing` and `tracing_subscriber` looks like:
+In Rust, a lightweight logging facade is provided by [log][log.rs]. It has less features than `ILogger`, e.g. as it does not yet offer (stable) structured logging or logging scopes. 
+For something with more feature parity to .NET, Tokio offers [`tracing`][tracing.rs]. `tracing` is a framework for instrumenting Rust applications to collect structured, event-based diagnostic information. [`tracing_subscriber`][tracing-subscriber.rs] can be used to implement and compose `tracing` subscribers. The same structured logging example from above with `tracing` and `tracing_subscriber` looks like:
 
 ```rust
 fn main() {
@@ -29,12 +18,7 @@ fn main() {
 }
 ```
 
-[OpenTelemetry][opentelemetry.rs] offers a collection of tools, APIs, and SDKs
-used to instrument, generate, collect, and export telemetry data based on the
-OpenTelemetry specification. At the time of writing, the [OpenTelemetry Logging
-API][opentelemetry-logging] is not yet stable and the Rust implementation [does
-not yet support logging][opentelemetry-status.rs], but the tracing API is
-supported.
+[OpenTelemetry][opentelemetry.rs] offers a collection of tools, APIs, and SDKs used to instrument, generate, collect, and export telemetry data based on the OpenTelemetry specification. At the time of writing, the [OpenTelemetry Logging API][opentelemetry-logging] is not yet stable and the Rust implementation [does not yet support logging][opentelemetry-status.rs], but the tracing API is supported.
 
 [opentelemetry.rs]: https://crates.io/crates/opentelemetry
 [tracing-subscriber.rs]: https://docs.rs/tracing-subscriber/latest/tracing_subscriber/
