@@ -71,11 +71,11 @@ fn panic_if_negative(value: i32) {
 
 ## Error propagation
 
-In .NET, exceptions are passed up until they are handled or the program terminates. In Rust, unrecoverable errors behave similarly, but handling them is uncommon.
+In JavaScript, exceptions are passed up until they are handled or the program terminates. In Rust, unrecoverable errors behave similarly, but handling them is uncommon.
 
 Recoverable errors, however, need to be propagated and handled explicitly. Their presence is always indicated by the Rust function or method signature. Catching an exception allows you to take action based on the presence or absence of an error in JavaScript:
 
-```csharp
+```js
 //JavaScript doesn't have a file system in it. People often implement file systems using the BrowserFS library that mimic Node.js APIs.
 function write() {
     try {
