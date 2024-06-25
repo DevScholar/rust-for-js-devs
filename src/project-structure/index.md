@@ -1,6 +1,7 @@
 # Project Structure
 
 The JavaScript standard does not specify a specification for the structure of the project. Generally speaking, all the files in a JavaScript library are usually placed in a folder named after the library. The following is a common JavaScript project specification:
+
     .
     +-- src/
     |   +-- project1.js
