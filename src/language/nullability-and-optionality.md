@@ -26,7 +26,7 @@ In JavaScript, you may have been using `if`/`else` statements for controlling th
 let max = 10;
 if (max !== null && max !== undefined) {
     let someMax = max;
-    console.log(`The maximum is ${someMax}.`); // 输出：The maximum is 10.
+    console.log(`The maximum is ${someMax}.`); // Output：The maximum is 10.
 }
 ```
 

@@ -43,7 +43,7 @@ For more information, see "[Showing Function Output][test-output]".
   [test-output]: https://doc.rust-lang.org/book/ch11-02-running-tests.html#showing-function-output
 
 ## Assertions
-JavaScript users have multiple ways to assert, depending on the framework being used. For example, an assertion Jest might look like:
+JavaScript users have multiple ways to assert, depending on the framework being used. For example, an assertion in Jest might look like:
 
 ```js
 test('something has the right length', () => {
