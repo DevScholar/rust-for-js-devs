@@ -34,7 +34,7 @@ For more information, see "[Running Tests in Parallel or Consecutively][tests-ex
 
 ## Output in Tests
 
-For very complex integration or end-to-end test, .NET developers sometimes log what's happening during a test. The actual way they do this varies with each test framework. For example, in NUnit, this is as simple as using `Console.WriteLine`, but in XUnit, one uses `ITestOutputHelper`. In Rust, it's similar to NUnit; that is, one simply writes to the standard output using `println!`. The output captured during the running of the tests is not shown by default unless `cargo test` is run the with `--show-output` option:
+For very complex integration or end-to-end test, developers sometimes log what's happening during a test. The actual way they do this varies with each test framewor Rust, one simply writes to the standard output using `println!`. The output captured during the running of the tests is not shown by default unless `cargo test` is run the with `--show-output` option:
 
     cargo test --show-output
 
