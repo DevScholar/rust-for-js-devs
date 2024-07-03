@@ -12,7 +12,7 @@ The mapping of those to JavaScript is shown in the following table:
 | `String`           | `string`   |             |
 | `String` (mutable) | `string`   | see Note 1. |
 
-There are differences in working with strings in Rust and JavaScript, but the equivalents above should be a good starting point. One of the differences is that Rust strings are UTF-8 encoded, but .NET strings are UTF-16 encoded. Rust strings can be mutable when declared as such, for example `let s = &mut String::from("hello");`. 
+There are differences in working with strings in Rust and JavaScript, but the equivalents above should be a good starting point. One of the differences is that Rust strings are UTF-8 encoded, but JavaScript strings are UTF-16 encoded. Rust strings can be mutable when declared as such, for example `let s = &mut String::from("hello");`.
 
 There are also differences in using strings due to the concept of ownership. To read more about ownership with the String Type, see the [Rust Book][ownership-string-type-example].
 
