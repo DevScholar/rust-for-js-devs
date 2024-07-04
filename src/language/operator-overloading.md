@@ -18,7 +18,7 @@ class Fraction {
     }
 }
 
-console.log(Fraction.add(new Fraction(5, 4), new Fraction(1, 2)).toString());  // 输出 "14/8"
+console.log(Fraction.add(new Fraction(5, 4), new Fraction(1, 2)).toString());  // Output: "14/8"
 ```
 
 In Rust, many operators [can be overloaded via traits][ops.rs]. This is possible because operators are syntactic sugar for method calls. For example, the `+` operator in `a + b` calls the `add` method (see [operator overloading]):
