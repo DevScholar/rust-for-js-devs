@@ -21,8 +21,8 @@ Non-goals:
 - While there are short examples that contrast JavaScript and Rust code for some topics, this guide is not meant to be a cookbook of coding recipes in the two languages.
 
 ---
-<!--
-[^authors]: The original authors of this guide were (in alphabetical order):
+
+[^authors]: The original authors of Microsoft's Rust for C#/.NET Developers were (in alphabetical order):
 [Atif Aziz], [Bastian Burger], [Daniele Antonio Maggio], [Dariusz Parys] and
 [Patrick Schuler].
 
@@ -31,4 +31,6 @@ Non-goals:
   [Daniele Antonio Maggio]: https://github.com/danigian
   [Dariusz Parys]: https://github.com/dariuszparys
   [Patrick Schuler]: https://github.com/p-schuler
--->
+
+The adaption work is done by @[DevScholar] on GitHub.
+[DevScholar]: https://github.com/DevScholar
