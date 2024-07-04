@@ -33,4 +33,5 @@ Non-goals:
   [Patrick Schuler]: https://github.com/p-schuler
 
 The adaption work is done by @[DevScholar] on GitHub.
+
 [DevScholar]: https://github.com/DevScholar
