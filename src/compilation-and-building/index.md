@@ -63,7 +63,7 @@ In Rust this works almost the same if using Cargo to add packages.
 
 The most common package registry for Node.js is [npmjs.com] whereas Rust packages are usually shared via [crates.io].
 
-[nuget.org]: https://www.npmjs.com/
+[npmjs.com]: https://www.npmjs.com/
 [crates.io]: https://crates.io
 
 ## Static code analysis
