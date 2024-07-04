@@ -36,4 +36,4 @@ The adaption work is done by @[DevScholar] on GitHub.
 
 [DevScholar]: https://github.com/DevScholar
 
-This book contains audited artificial intelligence generated code.
+This book contains artificial intelligence generated code, and the code are audited.
