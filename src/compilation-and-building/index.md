@@ -51,7 +51,7 @@ tokio = "1.0.0"
 Cargo follows a convention that `src/main.rs` is the crate root of a binary crate with the same name as the package. Likewise, Cargo knows that if the package directory contains `src/lib.rs`, the package contains a library crate with the same name as the package.
 
 ## Packages
-There is no concept of packages in the JavaScript standard. However, some JavaScript runtimes, such as Node.js, have the concept of packages. NPM is most commonly used to install packages for Node.js, and various tools supported it.
+There is no concept of packages in the JavaScript standard. However, some JavaScript runtimes, such as Node.js, have the concept of packages. NPM is most commonly used to install packages for Node.js, and various tools supported it. Deno Package Manager(DPM) is an unofficial package manager for Deno that imitates NPM.
 For example, adding a Node.js package reference with the Node,js CLI will add the
 dependency to the project file:
 

@@ -64,21 +64,13 @@ Rust
 ```rust
 let str = r#"Hello, \World/!"#;
 ```
-<!--
-C# UTF-8 string literals are equivalent to Rust byte string literals.
 
-C#
-
-```csharp
-ReadOnlySpan<byte> str = "hello"u8;
-```
-
-Rust
+Rust UTF-8 string literals:
 
 ```rust
 let str = b"hello";
 ```
--->
+
 ## String Interpolation
 
 JavaScript has a built-in string interpolation feature that allows you to embed expressions inside a string literal. The following example shows how to use string interpolation in JavaScript:
