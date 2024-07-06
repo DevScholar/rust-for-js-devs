@@ -2,7 +2,7 @@
 
 Running benchmarks in Rust is done via [`cargo bench`][cargo-bench], a specific command for `cargo` which is executing all the methods annotated with the `#[bench]` attribute. This attribute is currently [unstable][bench-unstable] and available only for the nightly channel.
 
-.NET users can make use of `Benchmark.js` library to benchmark methods and track their performance. The equivalent of `Benchmark.js` is a crate named `Criterion`.
+JavaScript users can make use of `Benchmark.js` library to benchmark methods and track their performance. The equivalent of `Benchmark.js` is a crate named `Criterion`.
 
 As per its [documentation][criterion-docs], `Criterion` collects and stores statistical information from run to run and can automatically detect performance regressions as well as measuring optimizations.
 
