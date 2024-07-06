@@ -49,7 +49,8 @@ For very large projects in Rust, Cargo offers [workspaces][cargo-workspaces] to 
 ## Managing dependency versions
 
 There is no concept of dependency in the JavaScript standard. However, some JavaScript runtimes, such as Node.js and Deno, have the concept of dependencies.
-When managing larger projects in Node.js, it may be appropriate to manage the versions of dependencies centrally, using strategies such as [nvm]. Deno uses [dvm].  Cargo introduced [workspace inheritance] to manage dependencies centrally. 
+When managing larger projects in Node.js, it may be appropriate to manage the versions of dependencies centrally, using strategies such as [nvm]. Deno uses [dvm].  Cargo introduced [workspace inheritance] to manage dependencies centrally.
+
 [nvm]: https://github.com/nvm-sh/nvm
 [dvm]: https://github.com/justjavac/dvm
 [workspace inheritance]: https://doc.rust-lang.org/cargo/reference/workspaces.html#the-package-table
