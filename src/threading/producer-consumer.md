@@ -26,7 +26,6 @@ worker.onmessage = function(event) {
 worker.postMessage(null);
 
 ```
-The same can be done in Rust using _channels_. The standard library primarily provides `mpsc::channel`, which is a channel that supports multiple producers and a single consumer. A rough translation of the above JavaScript example in Rust would look as follows:
 
 The same can be done in Rust using _channels_. The standard library primarily provides `mpsc::channel`, which is a channel that supports multiple producers and a single consumer. A rough translation of the above JavaScript example in Rust would look as follows:
 
